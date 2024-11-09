@@ -11,8 +11,8 @@ const CreateSection = async (req , res) => {
                 message:"Fill out complete details", 
             });
          }
-
-
+          
+         
          const NewSection = await Section.create({NewSection});
          console.log(NewSection);
          //update in the course also 
@@ -40,8 +40,6 @@ const CreateSection = async (req , res) => {
         });
     }
 }
-
-
 
 
 const updateSection = async (req , res)=> {

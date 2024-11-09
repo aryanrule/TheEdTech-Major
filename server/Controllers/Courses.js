@@ -1,6 +1,9 @@
 const Courses  = require('../Models/Courses');//the Courses model 
 const Category = require('../Models/Category');
 const User  = require('../Models/User');
+
+
+
 const createCourses = async (req , res) => {
     try{
         const {courseName , courseDescription , whatYouWillLearn , price  , Category} = req.body;
