@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
 
 const RatingSchema = new mongoose.Schema({
-      Rating:{
-        type:Number , 
-        required:true , 
-      } , 
-      Reviews:{
-        type:String , 
-        required:true, 
-      } , 
-
-      //this is  a ref that who who have given the ratiung and reviews 
-      //this is leftover 
-      user:{
-            type:mongoose.Schema.Types.ObjectId  , 
-            required:true, 
-            ref:"User",  
-       }
+      user: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: "user",
+	},
+	rating: {
+		type: Number,
+		required: true,
+	},
+	review: {
+		type: String,
+		required: true,
+	},
+	course: {
+		type: mongoose.Schema.Types.ObjectId,
+		required: true,
+		ref: "Course",
+		index: true,
+	},
 })
+
+module.exports = mongoose.model("RatingAndReview", RatingSchema);

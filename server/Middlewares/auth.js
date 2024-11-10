@@ -18,7 +18,7 @@ exports.auth = async (req , res , next) => {
           console.log(decode);
 
           //ok lets solve it again 
-          req.user = docode;
+          req.user = decode;
        }catch(e){
         return res.status(401).json({
             success:false,
@@ -41,16 +41,18 @@ exports.auth = async (req , res , next) => {
 //now lets build a 
 exports.isStudent = async (req , res , next) => {
     try{
-        if(res.user.role !== 'Student'){
+        if(req.user.role !== 'Student'){
             return res.status(401).json({
                 message:"thi is a protected route for student only "
             })
         }
+        next();
     }catch(e){
         return res.status(500).json({
             message:"user role cannot be verified", 
         })
     }
+   
 } 
 
 

@@ -58,3 +58,37 @@ const getAllCategory = async (req , res) => {
 }
 
 module.exports = {createCategory , getAllCategory} ;
+
+//given a categoryId now get the courses all of the should be related to that category 
+const getCategoryPageDetails = async (req , res) => {
+    try{  
+        const CategoryId = req.body;
+
+        const selectedCategory = await Category.findById({CategoryId}).populate("courses").exec();
+
+        if(!selectedCategory){
+            return res.status(404).json({
+                success:false,
+                message:'Data Not Found',
+            });
+        }
+
+        //now get the courses with all differecnt categories 
+        const differentCategory = await Category.find({_id:{$ne:CategoryId}}).populate("courses").exec();
+
+        return res.status(200).json({
+            success:true,
+            data: {
+                selectedCategory,
+                differentCategory,
+            },
+        });
+
+    }catch(e){
+        console.log(error);
+        return res.status(500).json({
+            success:false,
+            message:error.message,
+        });
+    }
+}

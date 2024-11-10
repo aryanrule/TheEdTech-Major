@@ -16,21 +16,21 @@ const CreateProfile = async (req , res) => {
       }
       
       
-      const UserDetails = await User.findById({UserId});
-      const ProfileId = await UserDetails.additionalDetails;
-      const profileDetails = await Profile.findById({ProfileId});
+      const userDetails = await User.findById(id);
+      const profile = await Profile.findById(userDetails.additionalDetails);
 
       ///update profile  //this might be wrong
-      profileDetails.DateOfBirth = DateOfBirth;
-      profileDetails.about = about ;
-      profileDetails.gender = gender;
-      profileDetails.contactNumber=contactNumber;
+      profile.dateOfBirth = dateOfBirth;
+      profile.about = about;
+      profile.contactNumber = contactNumber;
 
-      await profileDetails.save();
+
+      await profile.save();
 
       return res.status(200).json({
         success:true , 
         message:"profile is created successfully", 
+        profile , 
       });
 
     }catch(e){

@@ -30,13 +30,40 @@ const userSchema = new mongoose.Schema({
         required:true , 
         ref:"Profile" , 
      } , 
+     active:{
+       type:Boolean , 
+       default:true ,
+     } , 
+     approved:{
+      type:Boolean , 
+      default:true , 
+     } , 
+
      Courses:[
         {
             type:mongoose.Schema.Types.ObjectId,
             required:true , 
-            ref:'Courses' , 
+            ref:'Course' , 
         }
      ] , 
-});
+     CourseProgress:[
+         {
+            type:mongoose.Schema.Types.ObjectId ,
+            ref:"CourseProgress"
+         }
+     ] , 
+     image:{
+        type:String , 
+        required:true , 
+
+     } ,
+     token:{
+         type:String 
+     } , 
+     resetPassWordExpires:{
+          type:Date , 
+     }
+
+}  ,{timestamps:true});  //timestamps gives the time of update the document 
 
 module.exports = mongoose.model('User' , userSchema);
