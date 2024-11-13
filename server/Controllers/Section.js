@@ -1,8 +1,8 @@
 
-const Courses =  require('../Models/Courses');
+const Courses =  require('../Models/Course');
 const Section = require('../Models/Section');
 
-const CreateSection = async (req , res) => {
+exports.CreateSection = async (req , res) => {
     try{
          const {SectionName , CourseId}  = req.body;
          if(!SectionName || !CourseId){
@@ -13,23 +13,30 @@ const CreateSection = async (req , res) => {
          }
           
          
-         const NewSection = await Section.create({NewSection});
+         const NewSection = await Section.create({SectionName});
          console.log(NewSection);
          //update in the course also 
          //remember it was an array 
-         const UpdateCourses = await Courses.findByIdAndUpdate(CourseId , {
+
+         const UpdatedCourse = await Courses.findByIdAndUpdate(CourseId , {
             $push:{
                 CourseContent:NewSection._id, //it will always return an updated document 
             }
          } , {new:true}  //it will return the updated dodument 
-        );
-        console.log(UpdateCourses);
+        ).populate({
+            path:"courseContent" , 
+            populate:{
+                path:"subSection", 
+            }
+        }).exec();
+
+        console.log(UpdatedCourse);
         //HW: use populate to replace sections/sub-sections both in the updatedCourseDetails
         
         return res.status(200).json({
             success:true , 
             message:"Section created successfully",
-            UpdateCourses
+            UpdatedCourse
         })
 
     }catch(error){
@@ -42,17 +49,17 @@ const CreateSection = async (req , res) => {
 }
 
 
-const updateSection = async (req , res)=> {
+exports.updateSection = async (req , res)=> {
     try{
-          const {SectionName , SectionId} = req.body;
-             if(!SectionName || !SectionId) {
+          const { NewSectionName , SectionId} = req.body;
+             if(!NewSectionName || !SectionId) {
                 return res.status(400).json({
                 success:false,
                 message:'Missing Properties',
                 });
           }
           
-          const updatedSection =await  Section.findByIdAndUpdate(SectionId, {SectionName} , {new:true});
+          const updatedSection =await  Section.findByIdAndUpdate(SectionId, {NewSectionName} , {new:true});
           console.log(updatedSection);
           
           return res.status(200).json({
@@ -71,7 +78,7 @@ const updateSection = async (req , res)=> {
 
 
 //delete section 
-const deleteSection = async (req , res) => {
+exports.deleteSection = async (req , res) => {
     try{
          const {SectionId} = req.body;
          if(!SectionId){
@@ -98,4 +105,3 @@ const deleteSection = async (req , res) => {
     }
 }
 
-module.exports = {CreateSection , updateSection , deleteSection} 

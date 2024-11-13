@@ -1,46 +1,53 @@
 const Course = require('../Models/Course');
 const User = require('../Models/User');
 const Category = require('../Models/Category');
-const { UploadImageToCloudinary } = require('../Utils/uploadToCloud');
+const { uploadImageToCloudinary } = require('../Utils/uploadToCloud');
 
-const createCourse = async (req, res) => {
+exports.createCourse = async (req, res) => {
     try{
-        const {userId} = req.user.id;
-
+        const userId = req.user.id;
+        console.log(userId);
         let {
-            courseName , 
-            courseDescription , 
-            wharYouwillLearn  , 
-            price , 
-            tag , 
+            courseName, 
+            courseDescription, 
+            whatYouwillLearn, 
+            price, 
+            tag, 
             category, 
-            instructions ,
-            status , 
-        } = req.body;
+            instructions,
+            status 
+          } = req.body;
+          
+          const thumbnail = req.files ? req.files.thumbnail : null;
         
-        const thumbnail = req.files.thumbnail;
-
-        if(!courseName || !courseDescription || !wharYouwillLearn || !price || !tag || !category || !instructions || !thumbnail){
-            return res.status(201).json({
-                success:false, 
-                message:"fill the complete details" ,
+          if (!courseName || !courseDescription || !whatYouwillLearn || !price || !tag || !category || !instructions || !thumbnail) {
+            console.log(courseName, courseDescription, whatYouwillLearn, price, tag, category, instructions, thumbnail);
+            return res.status(400).json({
+              success: false, 
+              message: "Fill in all the required details."
             });
-        }
+          }
+        
+        
 
         if(!status || status === undefined){
             status = "Draft"
         };
 
         //check for instryctor details 
-        const instructorDetails = await User.findById(userId , {accountType:"Instructor"});
+        
+        const instructorDetails = await User.findById(userId);
+        console.log(instructorDetails)
         if(!instructorDetails){
             return res.status(201).json({
                 success:false , 
                 message:"instrcutor details not found", 
             });
         }
-
-        const categoryDetails = await Category.findById({category});
+        
+        
+        const categoryDetails = await Category.findOne({name:category});
+        console.log(categoryDetails);
         if(!categoryDetails){
             return res.status(201).json({
                 success:false , 
@@ -48,15 +55,14 @@ const createCourse = async (req, res) => {
 
             })
         }
-
-        const UploadThumbnail = await UploadImageToCloudinary(thumbnail , process.env.FOLDER_NAME);
-        console.log(UploadThumbnail);
-
+        
+        const UploadThumbnail = await uploadImageToCloudinary(thumbnail , process.env.FOLDER_NAME);
+    
         const newCourse = await Course.create({
             courseName ,
             courseDescription , 
             instructor:instructorDetails._id, 
-            wharYouwillLearn:wharYouwillLearn, 
+            whatYouwillLearn:whatYouwillLearn, 
             price, 
             tag:tag , 
             category:categoryDetails._id , 
@@ -64,12 +70,13 @@ const createCourse = async (req, res) => {
             status:status, 
             thumbnail:UploadThumbnail.secure_url, 
         });
+        console.log(newCourse);
+        //now update the course in the User model for the associated instructor;
 
-        //now update the course in the User model for the associated instructor ;
-        await User.findByIdAndUpdate({_id:instructorDetails._id} , {$push:{courses:newCourse._id}} , {new:true});
+        await User.findByIdAndUpdate({_id:instructorDetails._id} , {$push:{Courses:newCourse._id}} , {new:true});
         
         //adding 
-        await Category.findByIdAndUpdate({_id:category} ,{$push:{courses:newCourse._id}}, {new:true});
+        await Category.findByIdAndUpdate({_id:categoryDetails._id} ,{$push:{courses:newCourse._id}}, {new:true});
 
         res.status(200).json({
 			success: true,
@@ -79,8 +86,8 @@ const createCourse = async (req, res) => {
 
 
 
-    }catch(e){
-        console.log("some error in creating the course", e);
+    }catch(error){
+        console.log("some error in creating the course", error);
         res.status(500).json({
 			success: false,
 			message: "Failed to create course",
@@ -90,7 +97,7 @@ const createCourse = async (req, res) => {
 }
 
 //making a controller where we are just looking our all the courses 
-const getAllCourses = async (req, res) => {
+exports.showAllCourses = async (req, res) => {
     try{
           const allCourse = await Course.find({} , {
                 courseName: true,
@@ -99,12 +106,13 @@ const getAllCourses = async (req, res) => {
 				instructor: true,
 				ratingAndReviews: true,
 				studentsEnroled: true,
-          }).populate("Instructor").exec();
+          }).populate("instructor").exec();  //i also wanted the corresponding Instructor for that project 
           return res.status(200).json({
 			success: true,
 			data: allCourse,
 		});
-    }catch(e){
+        
+    }catch(error){
         console.log(error);
 		return res.status(404).json({
 			success: false,
@@ -116,8 +124,7 @@ const getAllCourses = async (req, res) => {
 };
 
 
-
-//now making a controller where we need to get the courses related to a particulat category 
+//this is a controller where i need the complete data of the course 
 //LEFTOVER 
 const getCourseDetails  = async (req, res) => {
     try{
@@ -136,7 +143,4 @@ const getCourseDetails  = async (req, res) => {
     }
 
 };
-
-
-module.exports = {};
 
