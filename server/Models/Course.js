@@ -13,6 +13,9 @@ const CourseSchema = new mongoose.Schema({
         required: true,
         ref: "User",
     },
+
+
+    
     whatYouWillLearn: {   // corrected typo
         type: String,  // fixed 'type: true' to 'type: String'
     },
