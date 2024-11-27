@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+
 require('dotenv').config(); 
 const dbConnect = require('./Config/database');
+
 
 const UserRouter = require('./Routes/User');
 const ProfileRoutes = require('./Routes/Profile');
@@ -13,6 +16,9 @@ const {cloudinaryConnect} = require('./Config/cloudinary');
 const fileUpload = require('express-fileupload');
 
 const PORT = process.env.PORT || 4000;
+
+
+app.use(cors());
 
 app.use(express.json()); 
 app.use(cookieParser());
@@ -27,7 +33,7 @@ app.use(fileUpload({
 
 app.use('/api/v1/auth/' , UserRouter);
 app.use('/api/v1/Profile/' , ProfileRoutes);
-app.use('/api/v1/Courses/' , CoursesRoutes);
+app.use('/api/v1/Courses' , CoursesRoutes);
 
 
 
