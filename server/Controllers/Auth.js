@@ -46,6 +46,8 @@ exports.generateOTP = async (req, res)=>{
          result = await OTP.findOne({otp:otp});
         }
         
+
+        
         
         const otpBody = await OTP.create({email , otp});
         console.log(otpBody);
