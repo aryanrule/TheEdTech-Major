@@ -21,7 +21,7 @@ exports.generateOTP = async (req, res)=>{
             message:"User is already registered", 
           });
        }
-
+       console.log("doing something here");
        //generate a otp
        var otp = OtpGenerator.generate(6 , {
            lowerCaseAlphabets:false, 
@@ -47,7 +47,7 @@ exports.generateOTP = async (req, res)=>{
         }
         
 
-        
+
         
         const otpBody = await OTP.create({email , otp});
         console.log(otpBody);
