@@ -70,6 +70,42 @@ exports.generateOTP = async (req, res)=>{
 
 }
 
+exports.checkUser = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        // Check if email is provided
+        if (!email) {
+            return res.status(400).json({
+                success: false,
+                message: "Email is required",
+            });
+        }
+
+        // Check if the user exists in the database
+        const checkUserPresent = await User.findOne({ email });
+        if (checkUserPresent) {
+            return res.status(200).json({
+                success: true,
+                message: "YES",
+            });
+        } 
+
+        // User not found
+        return res.status(404).json({
+            success: true,
+            message: "NO",
+        });
+
+    } catch (e) {
+        console.error(e);
+        return res.status(500).json({
+            success: false,
+            message: "Error in fetching user details",
+        });
+    }
+};
+
 
 
 exports.signup = async (req, res) => {
@@ -215,7 +251,6 @@ exports.login = async(req,res)=>{
         }
 
         const token = JWT.sign(payload , process.env.JWT_SECRET , {expiresIn:'10h'});
-        console.log(token);
         
         // user = user.toObject();
         user.token = token ;  //created a feild in user and then created this token 

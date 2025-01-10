@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 
-const {generateOTP , signup , login, changePassword} = require('../Controllers/Auth');
+const {generateOTP , signup , login, checkUser  ,  changePassword} = require('../Controllers/Auth');
 const {auth} = require('../Middlewares/auth');
 
 /********all AUTHN AND AUTHZ ROUTES ****************/
@@ -13,6 +13,7 @@ router.post("/signUp" , signup);   /*     signing up    */
 
 router.post("/login",   login);  /*     login      */
 
+router.post("/checkuser" , checkUser)
 
 ///3 routes leftover 
 // router.post('/changePassword' , auth ,  changePassword );   this thing is leftover 
