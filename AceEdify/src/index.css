@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* 
+@import url('https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: "REM", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;  
+  font-style: normal;
+} */
+
+body{
+  overflow-x: hidden;
+}
+
+
+.gradient-text {
+  background-image: linear-gradient(to right, #54b3d6, #54b3d6 50%, #000 50%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.3s ease-in-out;
+}
+
+.gradient-text:hover {
+  background-position: 0;
+}
+
+.hover-underline::before {
+  content: '';
+  background-color: #004838 ;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: width 0.3s ease-in-out;
+}
+
+.hover-underline:hover::before {
+  width: 100%;
+}
+
+
+
+/* Define the animation */
+@keyframes popIn {
+  0% {
+    transform: translateX(-100%); /* Start off-screen to the left */
+    opacity: 0; /* Invisible */
+  }
+  100% {
+    transform: translateX(0); /* End at the normal position */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+/* Apply the animation to your button or component */
+.button {
+  animation: popIn 1s ease-out forwards;
+}
+
+.image {
+  animation: popIn 1s ease-out forwards;
+  animation-delay: 0.5s; /* Optional: delay for different timing */
+}
+
+/* For right side pop-in */
+.button-right {
+  animation: popInRight 1s ease-out forwards;
+}
+
+@keyframes popInRight {
+  0% {
+    transform: translateX(100%); /* Start off-screen to the right */
+    opacity: 0; /* Invisible */
+  }
+  100% {
+    transform: translateX(0); /* End at the normal position */
+    opacity: 1; /* Fully visible */
+  }
+}
+/* 
+
+.pointer1{
+  position: relative;
+  
+  animation-name: circleOne;
+  animation-delay: 6s;
+  animation-duration: 2.3s;
+  animation-timing-function: ease-in;
+}
+
+@keyframes circleOne {
+   0%{
+      top: 0px;
+      left: 0px;
+   }
+   30%{
+      top: 0px;
+      left: 50px;
+
+   }
+   60%{
+     top: 50px;
+     left: 0px;
+   }
+
+   100%{
+    bottom: 40px;
+   }
+
+} */
+
+.pointer2 {
+  position: relative;
+}
+
+@keyframes circleTwo {
+  
+}
+
+
+
+
+
+.main{
+   animation-name: mainAnimation;
+   animation-duration: 1s;
+   
+}
+
+@keyframes mainAnimation {
+   from{
+     opacity: 0;
+     scale: 0.5;
+   }
+   to{
+    opacity: 1;
+    scale: 1;
+   }
+}
+
+
+.AnimateType1{
+  animation-name: appear;
+}
+
