@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import BtnG from "../components/Core/HomePage/BtnG";
 import { Link } from "react-router-dom";
+
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
   
   return (
     <div>
       <h3 className="font-bold text-2xl text-mango-green">My profile</h3>
-      <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[150px] flex justify-between items-center  bg-[#E5E4E2]">
+      <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[150px] flex justify-between items-center  bg-[#E5E4E2] border-mango-green">
         <div className=" flex  gap-2 p-4 ">
           <img
             src={user.image}
@@ -35,7 +36,7 @@ const MyProfile = () => {
         </Link>
       </div>
 
-      <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[300px] flex flex-col items-center bg-[#E5E4E2] p-6 shadow-lg">
+      <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[300px] flex flex-col items-center bg-[#E5E4E2] p-6 shadow-lg border-mango-green">
         {/* Header Section */}
         <div className="flex justify-between w-full items-center mb-6">
           <p className="font-bold text-lg text-gray-800">Personal Details</p>
