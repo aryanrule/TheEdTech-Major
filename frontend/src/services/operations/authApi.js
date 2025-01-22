@@ -16,6 +16,7 @@ import { setUser } from '../../slices/profileSlice';
 } = authEndPoints;
 
  export function sendOTP (email , navigate){
+   
    return async(dispatch) => {
       const toastId = toast.loading("Sending OTP");
       dispatch(setLoading(true));

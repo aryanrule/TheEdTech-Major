@@ -52,7 +52,7 @@ exports.CreateSection = async (req , res) => {
 exports.updateSection = async (req , res)=> {
     try{
           const { NewSectionName , SectionId} = req.body;
-             if(!NewSectionName || !SectionId) {
+               if(!NewSectionName || !SectionId) {
                 return res.status(400).json({
                 success:false,
                 message:'Missing Properties',

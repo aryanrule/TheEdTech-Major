@@ -6,7 +6,6 @@ const BASE_URL =  import.meta.env.VITE_REACT_APP_BASEURL;
 
 export const categoriesEndPoints =  {
     CATEGORIES_API : BASE_URL + '/Courses/getAllCategories',
-
 }
 
 
@@ -20,5 +19,8 @@ export const authEndPoints = {
 } 
 
 export const SettingsEndPoints = {
-    UpdatePicture : BASE_URL + '/Profile/updateProfilePicture' , 
+    UPDATE_PROFILE_PICTURE : BASE_URL + '/Profile/updateProfilePicture' ,
+    UPDATE_PROFILE : BASE_URL + '/Profile/updateProfile' ,  
+    DELETE_ACCOUNT : BASE_URL + '/Profile/deleteAccount' , 
+
 }
