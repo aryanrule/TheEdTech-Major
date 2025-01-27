@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
+
   
   return (
     <div>

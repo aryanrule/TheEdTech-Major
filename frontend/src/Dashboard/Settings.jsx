@@ -6,7 +6,7 @@ import UpdatePassword from '../components/Core/Settings/UpdatePassword'
 
 const Settings = () => {
   return (
-    <div>
+    <div >
          <h2 className='font-bold text-2xl text-mango-green'>Edit</h2>
 
          <UpdatePicture/>

@@ -158,9 +158,9 @@ export function logout(navigate){
       dispatch(setUser(null));
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      navigate('/');
       toast.success("logout successfully");
       toast.dismiss(toastId);
+      navigate('/');
    }
 }
 
