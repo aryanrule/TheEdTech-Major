@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { sidebarLinks } from '../data/dashboardlink'
 import { useDispatch, useSelector } from 'react-redux';
-import SidebarLink from './sidebarLink';
+import SidebarLink from './SidebarLink';
 import { VscSignOut } from 'react-icons/vsc';
 import { logout } from '../services/operations/authApi';
 import { useNavigate } from 'react-router-dom';

@@ -16,9 +16,13 @@ import Error from "./pages/Error";
 import MyProfile from "./Dashboard/MyProfile";
 import EnrolledCourses from "./Dashboard/EnrolledCourses";
 import Settings from "./Dashboard/Settings";
-
+import { useSelector } from "react-redux";
+import AddCourses from "./components/Core/AddCourse";
+import { ACCOUNT_TYPE } from "./utils/constant";
 
 function App() {
+  const {user} = useSelector((state) => state.profile);
+  
   return (
     <div className="font-semibold  min-h-screen  w-screen  ">
       <Navbar /> 
@@ -31,6 +35,8 @@ function App() {
 
         <Route path ="/login" element = {<Login/>}/>
         <Route path ="/signUp" element = {<SignUp/>}/>
+        
+        <Route path ='/verify-email' element={<VerifyEmail/>}/>
 
         <Route 
          element = {
@@ -42,6 +48,13 @@ function App() {
         <Route path = "dashboard/my-profile" element = {<MyProfile/>}/>
         <Route path = "dashboard/enrolled-courses" element = {<EnrolledCourses/>}/>
         <Route path = "dashboard/settings" element = {<Settings/>}/>
+        
+        {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR  && (
+          <>
+          <Route path = 'dashboard/add-course' element={<AddCourses/>}/>
+          </>
+        )}
+       
            
         </Route>
     

@@ -15,6 +15,27 @@ export const sidebarLinks = [
         type: ACCOUNT_TYPE.STUDENT , // only valid for student
         icon:'VscMortarBoard' , 
     }  , 
-    
+    {
+        id:3 , 
+        name:'My Courses' , 
+        path:'/dashboard/my-courses' , 
+        type:ACCOUNT_TYPE.INSTRUCTOR , 
+        icon:'VscVm' , 
+
+    } , 
+    {
+        id : 4 , 
+        name:'Add Courses' , 
+        path:'/dashboard/add-course' , 
+        type:ACCOUNT_TYPE.INSTRUCTOR , 
+        icon :'VscAdd'
+    }  , 
+    {
+    id: 5,
+    name: "Dashboard",
+    path: "/dashboard/instructor",
+    type: ACCOUNT_TYPE.INSTRUCTOR,
+    icon: "VscDashboard",
+    }
 ] 
 
