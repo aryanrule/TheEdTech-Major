@@ -3,6 +3,8 @@ const User = require('../Models/User');
 const Category = require('../Models/Category');
 const { uploadImageToCloudinary } = require('../Utils/uploadToCloud');
 
+
+
 exports.createCourse = async (req, res) => {
     try{
         const userId = req.user.id;

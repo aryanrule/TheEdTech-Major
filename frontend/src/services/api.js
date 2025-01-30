@@ -24,3 +24,7 @@ export const SettingsEndPoints = {
     DELETE_ACCOUNT : BASE_URL + '/Profile/deleteAccount' , 
 
 }
+
+export const CourseEndpoints = {
+    CREATE_COURSE : BASE_URL + '/Courses/createCourse' , 
+}

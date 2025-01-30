@@ -49,11 +49,11 @@ exports.createCategory = async (req, res) => {
 exports.getAllCategory = async (req , res) => {
     try{
         //i ll get a obbject of all the tags and its dis
-        const allTags = await Category.find({} , {name:true , description:true});
+        const AllCategories = await Category.find({} , {name:true , description:true});
         res.status(200).json({
             success:true,
             message:"All tags returned successfully",
-            allTags,
+            AllCategories,
         })
     }catch(e){
         return res.status(500).json({

@@ -152,3 +152,10 @@ body{
   animation-name: appear;
 }
 
+
+
+
+/* 
+.form-style {
+  @apply rounded-lg bg-white p-3 text-[16px] leading-[24px] text-white shadow-[0_1px_0_0] shadow-white/50  focus:outline-none;
+} */

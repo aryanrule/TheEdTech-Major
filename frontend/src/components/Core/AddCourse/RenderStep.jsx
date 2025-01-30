@@ -28,7 +28,7 @@ const RenderStep = () => {
     <>
       <div className="relative mb-2 flex w-full justify-center ">
         {steps.map((item) => (
-          <>
+            <>
             <div className="flex flex-col items-center" key={item.id}>
               <button
                 className={`grid cursor-default aspect-square w-[60px] place-items-center rounded-full border-[4px]
@@ -47,15 +47,19 @@ const RenderStep = () => {
             {item.id !== steps.length && (
               <>
                 <div
-                  className={`h-[calc(34px/2)] w-[33%] mt-[8px]  border-dashed border-b-4 ${
+                   key = {item.id}
+                    className={`h-[calc(34px/2)] w-[33%] mt-[8px]  border-dashed border-b-4 ${
                     step > item.id ? "border-yellow-50" : "border-richblack-500"
                   } `}
                 ></div>
               </>
             )}
-          </>
+            </>          
+           
         ))}
       </div>
+
+
  
       <div className="relative mb-2 flex w-full  justify-between "> 
          {
