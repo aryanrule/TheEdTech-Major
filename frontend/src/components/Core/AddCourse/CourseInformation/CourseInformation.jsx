@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { categoriesEndPoints } from '../../../../services/api';
 import { ApiConnector } from '../../../../services/apiConnector';
 import { fetchAllCategories } from '../../../../services/operations/courseDetailsAPI';
+import Upload from '../Upload';
 
 
 const CourseInformation = () => {
@@ -176,7 +177,10 @@ const CourseInformation = () => {
         />
 
         {/* file uploadation based on editcourse or while creating a course*/}
-
+        
+        <Upload
+          
+        />
        
      </form>
   )
