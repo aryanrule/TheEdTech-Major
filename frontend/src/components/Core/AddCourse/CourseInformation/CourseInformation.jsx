@@ -7,6 +7,7 @@ import { categoriesEndPoints } from '../../../../services/api';
 import { ApiConnector } from '../../../../services/apiConnector';
 import { fetchAllCategories } from '../../../../services/operations/courseDetailsAPI';
 import Upload from '../Upload';
+import Requirements from './Requirements';
 
 
 const CourseInformation = () => {
@@ -176,12 +177,46 @@ const CourseInformation = () => {
         getValues={getValues}
         />
 
-        {/* file uploadation based on editcourse or while creating a course*/}
-        
+        {/* file uploadation or thumbnail uploadation based on editcourse or while creating a course*/}
         <Upload
-          
+          label="CourseImage"
+          name= "Course Thumbnail"
+          register = {register}
+          setValue={setValue}
+          errors = {errors}
+          editData = {editCourse ? course.thumbnail : null}
         />
-       
+
+        {/* creating a requirement field */}
+        <div className='flex flex-col space-y-2'>
+             <label className='text-sm text-black' htmlFor='courseBenefits'>Benefits of Course  <sup className='text-pink-700 text-md'>*</sup></label>
+               
+             <textarea
+               {...register("courseBenefits"  , {required:true})}
+               placeholder='Enter Benefits of Course'
+               className='form-style resize-x-none min-h-[130px] w-full'
+              id='courseBenefits'
+             />
+        </div>
+        {
+          errors.courseBenefits && (
+            <span className='ml-2 text-xs tracking-wide text-pink-200'>
+                 courseBenefits is required 
+            </span>
+          )
+        }
+
+
+        {/* here comes the requiresments or the instructions this is similar to tags */}
+        <Requirements
+          name="courseRequirements"
+        label="Requirements/Instructions"
+        register={register}
+        setValue={setValue}
+        errors={errors}
+        getValues={getValues}
+
+        />
      </form>
   )
 }
