@@ -51,6 +51,7 @@ const Requirements = ({label , name  , register , setValue , getValues , errors 
             onChange={(e) => setRequirements(e.target.value)} 
          />
          <button 
+         type='button'
          className='font-semibold text-mango-green'
          onClick={handleAddRequirement}
          >
