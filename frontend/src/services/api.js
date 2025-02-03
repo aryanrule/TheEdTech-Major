@@ -26,5 +26,8 @@ export const SettingsEndPoints = {
 }
 
 export const CourseEndpoints = {
-    CREATE_COURSE : BASE_URL + '/Courses/createCourse' , 
+
+    CREATE_COURSE : BASE_URL + '/Courses/createCourse' ,
+    CREATE_SECTION : BASE_URL + '/Courses/addSection',
+
 }

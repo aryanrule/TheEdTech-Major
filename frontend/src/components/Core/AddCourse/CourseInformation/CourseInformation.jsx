@@ -5,7 +5,7 @@ import ChipInput from "./ChipInput";
 import { useDispatch, useSelector } from "react-redux";
 import { categoriesEndPoints } from "../../../../services/api";
 import { ApiConnector } from "../../../../services/apiConnector";
-import { fetchAllCategories } from "../../../../services/operations/courseDetailsAPI";
+import { fetchAllCategories, updateCourseDetails } from "../../../../services/operations/courseDetailsAPI";
 import Upload from "../Upload";
 import Requirements from "./Requirements";
 import { setCourse, setEditCourse, setStep } from "../../../../slices/courseSlice";
@@ -70,11 +70,7 @@ const CourseInformation = () => {
     
     getAllCategories();
   }, []);
-
-  // IS FORMUDATED PENDING
   
-  // write a function in which you are checking weather the form is updated or not 
-  // or you are just again setting all the old values 
   
   const isFormUpdated = () => {
         const currentValues = getValues();
@@ -101,46 +97,46 @@ const CourseInformation = () => {
     // ELSE SIMPLY CALL YOU CREATECOURSE API 
        
      // REEVALUATION AFTER SOME TIME -------------------------------------------------------VERY IMPORTANT 
-      // if(editCourse){
-      //   const currentValues = getValues();
-      //   const formdata = new FormData();
+     if(editCourse){
 
-      //   if(isFormUpdated()){  // means something is changed
-      //         formdata.append("courseId" ,course._id)
-      //         if(currentValues.courseTitle !== course?.courseName){
-      //            formdata.append("courseName" , data.courseTitle);
-      //         }
-      //         if(currentValues.courseDescription !== course?.courseShortDesc){
-      //            formdata.append("courseDescription" , data.courseShortDesc);
-      //         }
-      //         if(currentValues.coursePrice !== course?.Price){
-      //           formdata.append("price" , data.coursePrice);
-      //         }
-      //         if(currentValues.courseTag !== course?.tag){
-      //           formdata.append("tag" , data.courseTag);
-      //         }
-      //         if(currentValues.courseImage !== course?.thumbnail){
-      //           formdata.append("thumbnail" , data.courseImage);
-      //         }
-      //         if(currentValues.courseRequirements !== course?.instructions){
-      //           formdata.append("instructions" , data.courseRequirements);
-      //         }
-      //         if(currentValues.courseCategory !== course?.category){
-      //           formdata.append("category" , data.courseCategory);
-      //         }
-      //         if(currentValues.courseBenefits !== course?.whatYouwillLearn){
-      //           formdata.append("whatYouwillLearn"  , data.whatYouwillLearn);
-      //         }
-      //   }
-   
+         if(isFormUpdated()){  // means there are some changes in your edit course mode 
+          const currentValues = getValues();
+          const formdata = new FormData();
+          
+          formdata.append("courseId" , course._id);
+          if(currentValues.courseTitle !== course.courseName){
+            formdata.append("courseName" , data.courseTitle);
+          }
+          if(currentValues.courseShortDesc !== course.courseDescription){
+            formdata.append("courseDescription" , data.courseShortDesc);
+          }
+          if(currentValues.coursePrice !== data.price){
+            formdata.append("price" , data.coursePrice);
+          }
+          if(currentValues.courseTags.toString() !== course.tag.toString()){
+            formdata.append("tag" , JSON.stringify(data.courseTags));    
+          }
+          if(currentValues.courseImage !== course.thumbnail){
+            formdata.append("thumbnail" , data.courseThumbnail);  
+          }
+          if(currentValues.category !== course.category){
+            formdata.append("category" , data.courseCategory);
+          }
+          if(currentValues.courseBenefits !== course.whatYouwillLearn){
+            formdata.append("whatYouwillLearn" , data.courseBenefits);
+          }
+          if(currentValues.courseRequirements.toString() !== course.instructions.toString()){
+            formdata.append("instructions" , JSON.stringify(data.courseRequirements));
+          }
 
-
-      // }
-
-
-      //  if not in edit mode then simply add it
-   
-      
+         }
+         setLoading(true);
+         const result = await updateCourseDetails(formdata , token);
+         console.log(result);
+         setLoading(false);
+     }
+     else {
+            
       console.log(data); // everythings works fine here 
       const formdata = new FormData();
       formdata.append("courseName" , data.courseTitle);
@@ -156,17 +152,23 @@ const CourseInformation = () => {
       //   console.log(pair[0] , pair[1]);
       // }
       // console.log([...formdata.entries()]);
+      // formdata.forEach((key , value) => {
+      //   console.log(key , value);
+      // })
 
 
       setLoading(true);
       const result = await addCourseDetails(formdata , token);
       if(result){
-         dispatch(setCourse(result));
+         dispatch(setCourse(result));  // now at present this is my course
          dispatch(setStep(2));
       }
 
       setLoading(false);
       
+     }
+     
+     
   };
 
   

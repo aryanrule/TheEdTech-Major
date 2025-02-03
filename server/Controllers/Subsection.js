@@ -23,6 +23,7 @@ exports.createSubSectionSection = async (req , res) => {
           });
        }
        const uploadDetails = await UploadImageToCloudinary(video , process.env.FOLDER_NAME);
+      
        
        const subsectionDetails = {
         title:title , 
