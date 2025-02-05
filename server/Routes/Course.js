@@ -9,7 +9,7 @@ const { auth, isAdmin, isInstructor } = require('../Middlewares/auth');
 
 const {CreateSection  , updateSection , deleteSection}  = require('../Controllers/Section');
 
-const {createSubSectionSection , deleteSubSection}= require('../Controllers/Subsection');
+const {createSubSection , deleteSubSection}= require('../Controllers/Subsection');
 
 /***************************** COURSE-RELATED ROUTES *******************/
 router.post('/createCourse', auth, isInstructor, createCourse);
@@ -21,7 +21,7 @@ router.post('/updateSection' , auth , isInstructor , updateSection);
 router.post('/deleteSection' , auth , isInstructor , deleteSection);
 
 
-router.post('/addSubsection', auth , isInstructor , createSubSectionSection);
+router.post('/addSubsection', auth , isInstructor , createSubSection);
 //updateing a subsection is leftover 
 router.delete('/deleteSubsection' , auth , isInstructor , deleteSubSection);
 

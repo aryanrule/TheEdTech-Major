@@ -157,3 +157,29 @@ export const updateCourseDetails = async (formdata , token) => {
 }
 
 
+export const CreateSubSection = async (formdata , token) => {
+       const toastId = toast.loading("creating subsection");
+       let result = null ;
+       try {
+          const response = await ApiConnector("POST" , CourseEndpoints.CREATE_SUBSECTION , formdata  , {
+            Authorization : `Bearer ${token}`
+             
+          });
+          
+          // response will give you a section which is now updated with a  subsection 
+          if(!response?.data?.succcess){
+            throw new Error("not able to delete the section");
+               
+          }
+          result = response?.data?.UpdatedSection;
+          toast.success("Lecture Added SUccesfully");
+        
+       }catch(error){
+        console.log(error);
+        toast.error("error");
+       }
+
+       toast.dismiss(toastId);
+       return result;
+}
+

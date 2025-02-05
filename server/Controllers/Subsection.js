@@ -4,7 +4,7 @@ const { uploadImageToCloudinary } = require("../Utils/uploadToCloud");
 require('dotenv').config();
 const subSection = require('../Models/Subsection');
 
-exports.createSubSectionSection = async (req , res) => {
+exports.createSubSection = async (req , res) => {
     try{
        const {SectionId , title , description  } = req.body;
 
@@ -55,13 +55,12 @@ exports.createSubSectionSection = async (req , res) => {
 // pending : delete and update section understand the whole architecture 
 exports.updateSubsection = async (req , res) => {
     try{
-        const {sectionId  , title , description} = req.body;
-        const subSection = await Subsection.findById(sectionId);
+        
         
         
       
     }catch(error){
-
+           
     }
 }
 

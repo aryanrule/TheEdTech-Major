@@ -8,21 +8,26 @@ import { FaPlus } from 'react-icons/fa'
 import ConfirmmationModal from '../../../../Dashboard/ConfirmmationModal'
 import { deleteSection } from '../../../../services/operations/courseDetailsAPI'
 import { setCourse } from '../../../../slices/courseSlice'
+import SubSectionModal from './SubSectionModal'
 const NestedView = ({handleEditSectionName}) => {
   const [confirmationModal , setConfirmationModal] = useState(null);
   const {token} = useSelector((state) => state.auth);
   const {course} = useSelector((state) => state.course);
   const dispatch = useDispatch();
+  const [addSubSection  , setAddSubSection] = useState(null); 
+  const [viewSubSection , setViewSubsection]= useState(null);
+
+  
   useEffect(() => {
     // just for testing 
     console.log(course);
     console.log(course?.courseContent);
     console.log(confirmationModal);
-
-
-
+    
+    // console.log(course?.courseContent?.subSection);
+    
   });
-
+  
   const handleDeleteSection = async (sectionId) => {
         let result ;
         result = await deleteSection({sectionId , courseId : course._id} , token);
@@ -31,11 +36,9 @@ const NestedView = ({handleEditSectionName}) => {
         }
         setConfirmationModal(null);
   }
-
-
-   
- 
   
+  
+    
   
   return (
 
@@ -59,7 +62,7 @@ const NestedView = ({handleEditSectionName}) => {
                         </div>
 
                         <div className="flex items-center gap-x-3">
-                             <button 
+                             <button
                                 onClick={() => handleEditSectionName(section._id , section.SectionName)}>
                                 <MdEdit className="text-xl text-richblack-300"/>
                              </button>
@@ -87,12 +90,14 @@ const NestedView = ({handleEditSectionName}) => {
                     <div className='px-6 pb-4'>
                          {
                             section.subSection.map((data) => (
-                                <div className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-mango-green py-2" >
+                                <div 
+                                 onClick={() => setViewSubsection(data)}
+                                 className="flex cursor-pointer items-center justify-between gap-x-3 border-b-2 border-mango-green py-2" >
                                      
                                       <div className='flex items-center gap-x-3 py-2'>
                                       <RxDropdownMenu className="text-2xl text-richblack-50" />
-                                         <p  className="font-semibold text-richblack-50">
-
+                                         <p  className="font-semibold text-black">
+                                            {data?.title}
                                          </p>
                                       </div>
                                        
@@ -115,7 +120,7 @@ const NestedView = ({handleEditSectionName}) => {
                          }
                          
                          <button 
-                         
+                         onClick={() => setAddSubSection(section._id)}
                          className='mt-3 flex items-center gap-x-1 text-mango-green'>
                             <FaPlus className='text-lg'/>
                             <p>Add Lecture</p>
@@ -129,8 +134,21 @@ const NestedView = ({handleEditSectionName}) => {
            ))  
         }
         
-        {confirmationModal ? (<ConfirmmationModal modalData={confirmationModal}/>) : (<></>)}
+       
         </div> 
+        {/* there are three things weather we are adding a subSection of editing a subSection or just viewing the subSection */}
+        {/* subsection modal here just kind of a form */}
+
+        {confirmationModal ? (<ConfirmmationModal modalData={confirmationModal}/>) : (<></>)}
+        {addSubSection ? 
+        (<SubSectionModal add = {true} modalData = {addSubSection} setModalData = {setAddSubSection} />) : (<></>)}
+
+
+        {viewSubSection ?
+        (<SubSectionModal view = {true}   modalData={viewSubSection} setModalData={setViewSubsection}/>) : (<></>)}
+
+
+
     </>
   )
 }
