@@ -81,9 +81,79 @@ export const createSection = async (value,token) => {
        toast.dismiss(toastId);
        return result;
 
+
+}
+
+export const updateSection = async (data , token ) => {
+    const toastId = toast.loading("updating SectionName");
+    let result = null;
+    try {
+        console.log("update section api" , CourseEndpoints.UPDATE_SECTION);
+        const response = await ApiConnector("POST" , CourseEndpoints.UPDATE_SECTION , data , {
+            Authorization : `Bearer ${token}` , 
+        }) ;
+        
+
+        if(!response?.data?.success){
+            throw new Error("not able to update the section");
+        } 
+        
+        result = response?.data?.data;
+
+        toast.success("section updated succesfully");
+        
+    }catch(error){
+        console.log(error);
+        toast.error("erorr");
+    }
+    toast.dismiss(toastId);
+    return result;
+
+}
+
+export const deleteSection = async(data , token) => {
+      const toastId = toast.loading("deleting section");
+      let result = null;
+      try{
+          console.log(CourseEndpoints.DELETE_SECTION);
+          const response = await ApiConnector("POST", CourseEndpoints.DELETE_SECTION , data , {
+            Authorization : `Bearer ${token}` , 
+          })
+          
+          if(!response?.data?.success){
+            throw new Error("not able to delete the section");
+
+          }
+          result = response?.data?.data;
+        //   console.log(response);
+          toast.success("Section de;eted successfully");
+
+      }catch(error){
+        toast.error("section couldnt delete");
+        console.log(error);
+      }
+      
+      toast.dismiss(toastId);
+      return result;
+}
+
+export const updateCourseDetails = async (formdata , token) => {
+       const toastId = toast.loading("Updating....")
+       let result = null;
+       try {
+            console.log(CourseEndpoints.EDIT_COURSE);
+            const response = await ApiConnector("POST" , CourseEndpoints.EDIT_SECTION , formdata ,  {
+                 Authorization : `Bearer ${token}`
+            });
+            console.log(response);
+            
+
+       }catch(error){
+          console.log(error);
+          toast.error("error");
+       }
+       toast.dismiss(toastId);
+
 }
 
 
-export const updateCourseDetails = async () => {
-    return "hello";
-}

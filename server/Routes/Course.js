@@ -17,8 +17,8 @@ router.get('/getAllCourses', auth , showAllCourses);
 router.post('/editCourse' , auth , isInstructor , editCourse );
 
 router.post('/addSection' , auth , isInstructor , CreateSection);
-router.put('/updateSection' , auth , isInstructor , updateSection);
-router.delete('/deleteSection' , auth , isInstructor , deleteSection);
+router.post('/updateSection' , auth , isInstructor , updateSection);
+router.post('/deleteSection' , auth , isInstructor , deleteSection);
 
 
 router.post('/addSubsection', auth , isInstructor , createSubSectionSection);

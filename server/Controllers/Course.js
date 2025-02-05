@@ -80,7 +80,7 @@ exports.createCourse = async (req, res) => {
       courseName,
       courseDescription,
       instructor: instructorDetails._id,
-      whatYouwillLearn: whatYouwillLearn,
+      whatYouWillLearn: whatYouwillLearn,
       price,
       tag: JSON.parse(tag),
       category: categoryDetails._id,
@@ -139,11 +139,11 @@ exports.editCourse = async (req, res) => {
         thumbnail,
         process.env.FOLDER_NAME
       );
-      Course.thumbnail = updloadThumnail.secure_url; // created a field in course and then updated it
+      course.thumbnail = updloadThumnail.secure_url; // created a field in course and then updated it
     }
 
     //update only the keys present in update
-    console.log("hello");
+    // console.log("hello");
     for (const key in updates) {
       if (updates.hasOwnProperty(key)) {
         if (key === "tag" || key === "instructions") {
@@ -153,31 +153,49 @@ exports.editCourse = async (req, res) => {
         }
       }
     }
-    console.log("hello jii");
 
-    await course.save();
-
-    const updatedCourse = await Course.findOne({ _id: courseId })
-      .populate({
-        path: "instructor",
-        populate: {
-          path: "additionalDetails",
-        },
-      })
-      .populate("category")
-      .populate("ratingAndReviews")
-      .polygon({
-        path: "courseContent",
-        populate: {
-          path: "subSection",
-        },
-      })
-      .exec();
+    await course.save();  // save yourse course in the doc 
+    
+    // now return the updated course with all the details 
+    // by the way you dont need this while editing your course you can even return the updated course 
+    // but just doing it for future refrence
+    // for an instance leave it 
+    // const updatedCourse = await Course.findOne({_id:courseId})
+    // .populate({
+    //     path : "instructor" , 
+    //     populate:{
+    //         path : "additionalDetails" 
+    //     }
+    // })
+    // .populate("category")
+    // .populate({
+    //     path : "courseContent" , 
+    //     populate:{ 
+    //         path : "subSection"  ,
+    //     }
+    // }).exec();
+         
+    // const updatedCourse = await Course.findOne({ _id: courseId })
+    //   .populate({
+    //     path: "instructor",
+    //     populate: {
+    //       path: "additionalDetails",
+    //     },
+    //   })
+    //   .populate("category")
+    //   .populate("ratingAndReviews")
+    //   .polygon({
+    //     path: "courseContent",
+    //     populate: {
+    //       path: "subSection",
+    //     },
+    //   })
+    //   .exec();
 
     res.json({
       success: true,
       message: "course Updated successfully",
-      UpdatedCourse: updatedCourse,
+      updatedCourse: course 
     });
   } catch (error) {
     console.error(error);

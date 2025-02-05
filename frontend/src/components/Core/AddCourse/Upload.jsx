@@ -28,7 +28,7 @@ const Upload = ({
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewSrc, setPreviewSrc] = useState(
-    viewData ? viewData : editData ? editData : ""
+    viewData ? viewData : (editData ? editData : "")
   );
 
   const inputRef = useRef(null);

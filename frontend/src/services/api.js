@@ -29,5 +29,9 @@ export const CourseEndpoints = {
 
     CREATE_COURSE : BASE_URL + '/Courses/createCourse' ,
     CREATE_SECTION : BASE_URL + '/Courses/addSection',
-
+    EDIT_COURSE : BASE_URL + '/Courses/editCourse' , 
+    CREATE_SECTION : BASE_URL + '/Courses/addSection' , 
+    UPDATE_SECTION : BASE_URL + '/Courses/updateSection' , 
+    DELETE_SECTION : BASE_URL + '/Courses/deleteSection' , 
+    CREATE_SUBSECTION : BASE_URL + '/Courses/addSubsection' , 
 }

@@ -1,42 +1,44 @@
 //for a section create subsection 
 const Section = require('../Models/Section');
-const { UploadImageToCloudinary } = require('../Utils/uploadToCloud');
+const { uploadImageToCloudinary } = require("../Utils/uploadToCloud");
 require('dotenv').config();
 const subSection = require('../Models/Subsection');
-const Subsection = require('../Models/Subsection');
-
 
 exports.createSubSectionSection = async (req , res) => {
     try{
-       const {SectionId , title , timeDuration , description , } = req.body;
-       if(!SectionId || !title ||  !timeDuration || !description ){
-           return res.status(400).json({
-             success:true , 
-             message:"fill up all the details", 
-           });
-       }
+       const {SectionId , title , description  } = req.body;
+
        const video = req.files.VideoFile;  //give the name videoFile 
-       if(!video){
+       if(!video || !SectionId || !title || !description){
           return res.status(400).json({
-            success:true , 
+            success:false , 
             message:"fill up all the details", 
           });
        }
-       const uploadDetails = await UploadImageToCloudinary(video , process.env.FOLDER_NAME);
-      
        
-       const subsectionDetails = {
-        title:title , 
-        timeDuration :timeDuration , 
-        description:description , 
-        videoUrl:uploadDetails.secure_url,
-       }
-       const updatedSection  = await Section.findByIdAndUpdate({_id:SectionId} ,{ $push :{subSection:subsectionDetails._id}} , {new:true});
+       const uploadDetails = await uploadImageToCloudinary(video , process.env.FOLDER_NAME);
+       
+
+       const NewSubsection = await subSection.create({
+          title:title , 
+          description:description , 
+          videoUrl : uploadDetails.secure_url , 
+          timeDuration : `${uploadDetails.duration}` ,   // in  Sec
+       })
+       console.log("new Section" , NewSubsection);
+      //  this is basically the section which is updated with the corresponding sectionID 
+       const updatedSection = await Section.findByIdAndUpdate({_id:SectionId} , {
+            $push :{
+              subSection: NewSubsection._id 
+            }
+          }    , 
+       {new :true} , ).populate("subSection");
+
 
        return res.status(200).json({
         succcess:true,
         message:'Sub Section Created Successfully',
-        updatedSection,
+        UpdatedSection:updatedSection 
        })
 
 

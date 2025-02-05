@@ -13,6 +13,7 @@ import IconBtn from "../../../Common/IconBtn";
 import { MdNavigateNext } from "react-icons/md"
 import { STATUS } from "../../../../utils/constant";
 import { addCourseDetails } from "../../../../services/operations/courseDetailsAPI";
+import toast from "react-hot-toast";
 /*
   CASE -1 WHEN YOU ARE IN YOUR EDITCOUSE MODE 
   CASE -2 WHEN YOU ARE NOT IN YOUR EDITCOURSE MODE 
@@ -58,14 +59,14 @@ const CourseInformation = () => {
     // if edit course is true then hundred percent there will be course also there 
     // all the values will be reflected to the corresponding fields
     if(editCourse){
-      setValue("courseTitle" , course?.courseName);
-      setValue("courseShortDesc" , course?.courseDescription);
-      setValue("coursePrice" , course?.price);
-      setValue("courseCategory" , course?.category);
-      setValue("courseTag" ,course?.tag);
-      setValue("courseImage" , course?.thumbnail);
-      setValue("courseBenefits" , course?.whatYouwillLearn);
-      setValue("courseRequirements" , course?.instructions);
+      setValue("courseTitle" , course.courseName);
+      setValue("courseShortDesc" , course.courseDescription);
+      setValue("coursePrice" , course.price);
+      setValue("courseCategory" , course.category);
+      setValue("courseTags" ,course.tag);
+      setValue("courseImage" , course.thumbnail);
+      setValue("courseBenefits" , course.whatYouWillLearn);
+      setValue("courseRequirements" , course.instructions);
     }
     
     getAllCategories();
@@ -82,7 +83,7 @@ const CourseInformation = () => {
           currentValues.courseImage !== course?.thumbnail ||
           currentValues.courseRequirements !== course?.instructor ||
           currentValues.courseCategory !== course?.category   ||
-          currentValues.courseBenefits !== course?.whatYouwillLearn 
+          currentValues.courseBenefits !== course?.whatYouWillLearn 
         ){
           return true ;
         }
@@ -122,18 +123,21 @@ const CourseInformation = () => {
           if(currentValues.category !== course.category){
             formdata.append("category" , data.courseCategory);
           }
-          if(currentValues.courseBenefits !== course.whatYouwillLearn){
+          if(currentValues.courseBenefits !== course.whatYouWillLearn){
             formdata.append("whatYouwillLearn" , data.courseBenefits);
           }
           if(currentValues.courseRequirements.toString() !== course.instructions.toString()){
             formdata.append("instructions" , JSON.stringify(data.courseRequirements));
           }
 
+          // its time to update this 
+          setLoading(true);
+          await updateCourseDetails(formdata , token);
+          setLoading(false);
+
          }
-         setLoading(true);
-         const result = await updateCourseDetails(formdata , token);
-         console.log(result);
-         setLoading(false);
+          
+        
      }
      else {
             
@@ -163,7 +167,7 @@ const CourseInformation = () => {
          dispatch(setCourse(result));  // now at present this is my course
          dispatch(setStep(2));
       }
-
+      console.log(result);
       setLoading(false);
       
      }
@@ -301,7 +305,7 @@ const CourseInformation = () => {
         </label>
 
         <textarea
-          {...register("courseBenefits", { required: true })}
+          {...register("courseBenefits" , {required:true})}
           placeholder="Enter Benefits of Course"
           className="form-style resize-x-none min-h-[130px] w-full"
           id="courseBenefits"

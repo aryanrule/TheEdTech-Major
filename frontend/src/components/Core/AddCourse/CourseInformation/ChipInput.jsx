@@ -10,7 +10,7 @@ const ChipInput = ({label , name , placeholder , register , errors , setValue}) 
 //   only edit course is pending 
   useEffect(() => {
     if(editCourse){
-       setValue(name , course?.tag);
+       setChips(course?.tag);
     }
     register(name, { required: true, validate: (value) => value.length > 0 })
     
