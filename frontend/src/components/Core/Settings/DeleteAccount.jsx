@@ -20,7 +20,7 @@ const DeleteAccount = () => {
           <h2 className="text-lg font-bold text-white">
             Delete Account
           </h2>
-          <div className="w-3/5 text-pink-25 text-white">
+          <div className="w-3/5 text-pink-25 ">
             <p>Would you like to delete account?</p>
             <p>
               This account may contain Paid Courses. Deleting your account is

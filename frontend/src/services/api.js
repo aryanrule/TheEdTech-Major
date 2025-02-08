@@ -6,6 +6,7 @@ const BASE_URL =  import.meta.env.VITE_REACT_APP_BASEURL;
 
 export const categoriesEndPoints =  {
     CATEGORIES_API : BASE_URL + '/Courses/getAllCategories',
+    CATEGORY_PAGE_DETAIL : BASE_URL + '/Courses/getCategoryPageDetails'
 }
 
 
@@ -34,4 +35,10 @@ export const CourseEndpoints = {
     UPDATE_SECTION : BASE_URL + '/Courses/updateSection' , 
     DELETE_SECTION : BASE_URL + '/Courses/deleteSection' , 
     CREATE_SUBSECTION : BASE_URL + '/Courses/addSubsection' , 
+    FIND_INSTRUCTORS_COURSE : BASE_URL + '/Courses/instructorCourse' , 
+    DELETE_COURSE : BASE_URL + '/Courses/deleteCourse' ,
+    FULL_COURSE_DETAILS : BASE_URL + '/Courses/getFullCourseDetails'  , 
+    
 }
+
+

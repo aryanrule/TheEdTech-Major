@@ -14,6 +14,7 @@ import { MdNavigateNext } from "react-icons/md"
 import { STATUS } from "../../../../utils/constant";
 import { addCourseDetails } from "../../../../services/operations/courseDetailsAPI";
 import toast from "react-hot-toast";
+
 /*
   CASE -1 WHEN YOU ARE IN YOUR EDITCOUSE MODE 
   CASE -2 WHEN YOU ARE NOT IN YOUR EDITCOURSE MODE 
@@ -37,6 +38,7 @@ const CourseInformation = () => {
         setCourseCategories(Category);
       }
       setLoading(false);
+      console.log(course);
       // 1st way to extract all the categories
       // const categoryName = catResponse.map((item) => item.name);
       // console.log("categoru name" , categoryName);
@@ -76,8 +78,8 @@ const CourseInformation = () => {
   const isFormUpdated = () => {
         const currentValues = getValues();
         if(
-          currentValues.courseTitle !== course?.courseName ||
-          currentValues.courseDescription !== course?.courseShortDesc ||
+          currentValues.courseTitle !== course?.courseName  ||
+          currentValues.courseShortDesc !== course?.courseDescription ||
           currentValues.coursePrice !== course?.price ||
           currentValues.courseTag !== course?.tag ||
           currentValues.courseImage !== course?.thumbnail ||
@@ -131,6 +133,9 @@ const CourseInformation = () => {
           }
 
           // its time to update this 
+          formdata.forEach((value, key) => {
+            console.log(key, value);
+           });
           setLoading(true);
           await updateCourseDetails(formdata , token);
           setLoading(false);

@@ -12,7 +12,7 @@ import { ApiConnector } from "../../services/apiConnector";
 import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "../../utils/constant";
 import ProfileDropdown from "../Core/HomePage/Nav/ProfileDropdown";
-
+import { fetchAllCategories } from "../../services/operations/courseDetailsAPI";
 
 
 const Navbar = () => {
@@ -36,7 +36,8 @@ const Navbar = () => {
         "GET",
         categoriesEndPoints.CATEGORIES_API
       );
-      setSubLinks(response.data.allTags);
+      // console.log(response);
+      setSubLinks(response?.data?.AllCategories);
       console.log(subLinks);
     } catch (error) {
       console.log("error occured while fetching the data", error);

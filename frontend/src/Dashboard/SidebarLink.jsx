@@ -67,7 +67,7 @@ const sidebarLink = ({link , iconName}) => {
 
     <div className="flex items-center gap-x-2 ">
         <Icon className='text-lg m-2'/>
-        <span>{link.name}</span>       
+        <spasn>{link.name}</spasn>       
     </div> 
     </NavLink>
   )

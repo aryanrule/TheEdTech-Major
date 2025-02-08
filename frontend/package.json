@@ -26,6 +26,7 @@
     "react-player": "^2.16.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.0.1",
+    "react-super-responsive-table": "^6.0.1",
     "typed-js": "^0.2.3",
     "typed.js": "^2.1.0",
     "video-react": "^0.16.0"

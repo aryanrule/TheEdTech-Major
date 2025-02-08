@@ -2,13 +2,13 @@ import { categoriesEndPoints } from "../api";
 import { ApiConnector } from "../apiConnector";
 import { toast } from "react-hot-toast"
 import { CourseEndpoints } from "../api";
+import { IoTrophySharp } from "react-icons/io5";
 // A FUNCTION WHICH FETCHES ALL THE CATEGORIES AVAILAIBLE THERE TO BUILD A COURSE 
-
-
 
 export const fetchAllCategories = async () => {
     let result = [];
     try{
+       console.log(categoriesEndPoints.CATEGORIES_API);
        const response = await ApiConnector("GET" , categoriesEndPoints.CATEGORIES_API);
        if(!response?.data?.success){
          throw new Error(response.data.message);
@@ -50,9 +50,32 @@ export const addCourseDetails = async (data , token) => {
        return result;
 }
 
+export const FindInstructorCourse = async (token) => {
+      let result = [] ;
+      const toastId = toast.loading("loading..."); 
+      try{
+          // console.log(CourseEndpoints.FIND_INSTRUCTORS_COURSE);
+          
+          const response = await ApiConnector("GET", CourseEndpoints.FIND_INSTRUCTORS_COURSE , null ,  {  // you have to pass data as null it will be syntaxual issue then if not passed null 
+            Authorization : `Bearer ${token}`
+         });
 
+         
+         if(!response?.data?.success){
+            throw new Error("error in course fetching of instrcutor");
+         }
+         console.log(response);
+         result = response?.data?.data;
+         
+        //  console.log(result);
+        
+      }catch(error){
+        console.log("there is a error while fetching the instructor course" , error);
+      }
+      toast.dismiss(toastId);
+      return result;
 
-
+}
 
 export const createSection = async (value,token) => {
        let result = null;
@@ -138,22 +161,27 @@ export const deleteSection = async(data , token) => {
 }
 
 export const updateCourseDetails = async (formdata , token) => {
-       const toastId = toast.loading("Updating....")
        let result = null;
-       try {
-            console.log(CourseEndpoints.EDIT_COURSE);
-            const response = await ApiConnector("POST" , CourseEndpoints.EDIT_SECTION , formdata ,  {
-                 Authorization : `Bearer ${token}`
-            });
-            console.log(response);
-            
+       const toastId = toast.loading("updating...");
+       try{
+          console.log(CourseEndpoints.EDIT_COURSE)
+          const response = await ApiConnector("POST", CourseEndpoints.EDIT_COURSE , formdata , {
+            Authorization : `Bearer ${token}` , 
+          })
+          if(!response?.data?.success){
+            throw new Error("not able to delete the section");
 
+          }
+          console.log(response);
+          result = response?.data?.updatedCourse;
+          toast.success("Updation has been done");
        }catch(error){
-          console.log(error);
+          console.log("error in hitting the update Course details", error);
           toast.error("error");
        }
+      
        toast.dismiss(toastId);
-
+       return result;
 }
 
 
@@ -182,4 +210,57 @@ export const CreateSubSection = async (formdata , token) => {
        toast.dismiss(toastId);
        return result;
 }
+
+
+
+export const deleteCourse = async (courseId , token) => {
+     const toastId = toast.loading("deleting...");
+
+    //  let response = false;
+     try {
+          const response = ApiConnector("POST" , CourseEndpoints.DELETE_COURSE , courseId , {
+            Authorization : `Bearer ${token}` , 
+          })
+
+          if(!response?.data?.success){
+             throw new Error("coudnt delete the course");
+            
+          }
+         
+          toast.success("course Deleted successFully");
+
+      }catch(error){
+        console.log(error);
+        toast.error("error");
+      }
+      toast.dismiss(toastId)
+}
+
+export const getFullCourseDetails = async (courseId , token)=> {
+    const toastId = toast.loading("deleting...");
+    let result = null;
+     try{
+        // console.log('hello gandupppppp');
+        const response = await  ApiConnector("POST" , CourseEndpoints.FULL_COURSE_DETAILS , {courseId} , {
+          Authorization : `Bearer ${token}` , 
+        });
+        if(!response?.data?.success){
+          throw new Error("coudn't get the full details of course");
+       }
+
+       result = response?.data?.data; 
+       
+        // console.log(response);
+        
+     }catch(error){
+      console.log(error);
+      toast.error("error");
+      result = error.response.data
+
+     }
+     toast.dismiss(toastId)
+     return result;
+}
+
+
 

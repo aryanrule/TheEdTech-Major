@@ -22,8 +22,10 @@ exports.auth = async (req , res , next) => {
           // 
 
           //ok lets solve it again 
-          console.log("whats inside req" , req.user);
+        //   console.log("whats inside req" , req.user);
           req.user = decode;
+          console.log(req.user);
+          
 
           //req ke andr user feild bnaiye and then passing it to the nextmiddleware or the next controller 
           //jin teen cheezo se payload bna tha vo teeno miljaengi 

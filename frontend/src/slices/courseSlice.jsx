@@ -19,12 +19,17 @@ const courseSlice = createSlice({
         } , 
         setEditCourse:(state , action) => {
             state.editCourse = action.payload
-        }
+        } , 
+        resetCourseStata : (state , action) => {
+            state.step = 1 ;
+            state.course = null ;
+            state.editCourse=false;
+        } 
     }
 })
 
 
 // two things to export 
 // one is action reducers and nex
-export const {setStep, setCourse , setEditCourse} = courseSlice.actions;
+export const {setStep, setCourse , setEditCourse , resetCourseStata} = courseSlice.actions;
 export default courseSlice.reducer ;

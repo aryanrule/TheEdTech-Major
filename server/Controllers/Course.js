@@ -2,6 +2,8 @@ const Course = require("../Models/Course");
 const User = require("../Models/User");
 const Category = require("../Models/Category");
 const { uploadImageToCloudinary } = require("../Utils/uploadToCloud");
+const Section = require("../Models/Section");
+const Subsection = require("../Models/Subsection");
 
 exports.createCourse = async (req, res) => {
   try {
@@ -155,47 +157,24 @@ exports.editCourse = async (req, res) => {
     }
 
     await course.save();  // save yourse course in the doc 
-    
-    // now return the updated course with all the details 
-    // by the way you dont need this while editing your course you can even return the updated course 
-    // but just doing it for future refrence
-    // for an instance leave it 
-    // const updatedCourse = await Course.findOne({_id:courseId})
-    // .populate({
-    //     path : "instructor" , 
-    //     populate:{
-    //         path : "additionalDetails" 
-    //     }
-    // })
-    // .populate("category")
-    // .populate({
-    //     path : "courseContent" , 
-    //     populate:{ 
-    //         path : "subSection"  ,
-    //     }
-    // }).exec();
-         
-    // const updatedCourse = await Course.findOne({ _id: courseId })
-    //   .populate({
-    //     path: "instructor",
-    //     populate: {
-    //       path: "additionalDetails",
-    //     },
-    //   })
-    //   .populate("category")
-    //   .populate("ratingAndReviews")
-    //   .polygon({
-    //     path: "courseContent",
-    //     populate: {
-    //       path: "subSection",
-    //     },
-    //   })
-    //   .exec();
+    // now return a course with every detail in it 
+    const updatedCourse = await Course.findOne({_id:courseId}).populate({
+      path : "instructor" , 
+      populate : {
+          path : "additionalDetails" , 
+      }
+    }).populate("category")
+    .populate({
+      path : "courseContent" , 
+      populate : {
+        path : "subSection" , 
+      }
+    }).exec();
 
     res.json({
       success: true,
       message: "course Updated successfully",
-      updatedCourse: course 
+      updatedCourse: updatedCourse 
     });
   } catch (error) {
     console.error(error);
@@ -207,6 +186,40 @@ exports.editCourse = async (req, res) => {
   }
 };
 
+exports.findCourseByInstructor = async (req , res) => {
+    try {
+        
+       //  here i got the bug 
+       // i dont need to destrcuture the instructor id 
+      //  const  {InstructorId} = req.user.id;
+       
+
+        const  InstructorId= req.user.id;
+        console.log("instructorId "  , InstructorId);
+        
+        // validations ko check krte hai 
+        // i dont need to poplate here 
+
+        const InstructorsCourse = await Course.find({instructor : InstructorId}).sort({createdAt : -1});
+        console.log("course by instructor ", InstructorsCourse);
+
+        res.status((200)).json({
+          success:true, 
+          message : "Here are all the courses with this instructor" , 
+          data : InstructorsCourse , 
+        })
+
+        
+
+
+    }catch(error){
+       console.log(error);
+       return res.status(500).json({
+         success:false , 
+         message:"coudnt fetch instructor by its id",
+       })
+    }
+}
 
 
 
@@ -245,19 +258,107 @@ exports.showAllCourses = async (req, res) => {
   }
 };
 
+
+
+
 //this is a controller where i need the complete data of the course
 //LEFTOVER
-const getCourseDetails = async (req, res) => {
-  try {
-    const courseId = req.body;
+// somethings are actually leftover here 
+// there are so many things leftover here 
+exports.getFullCourseDetails = async (req , res) => {
+      try {
+          // other things are leftover in this code 
+          const {courseId} = req.body;
+          const courseDetails = await Course.findOne({_id : courseId})
+          .populate({
+            path :"courseContent" , 
+            populate:{
+                path : "subSection"  , 
+            }
 
-    //finding the coursedetails
-    const courseDetails = await Course.find({ _id: courseId }).populate({});
-  } catch (e) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
+          }).populate("category")
+          .populate("")
+          
+          if(!courseDetails){
+            return res.status(400).json({
+              success:false, 
+              message : `Could not find course with id: ${courseId}`,
+            })
+          }
+
+          return res.status(200).json({
+            success:true, 
+            data :{
+              courseDetails , 
+            } , 
+            message :"here are your complete fullcourseDetails" , 
+          })
+
+
+      }catch(error){
+        console.log("coudnt get the full course details" , error);
+      }
+}
+  
+
+// lets write a controller to delete the course 
+// delete the course delete the associated all thes sections and then delete the subsections also 
+exports.deleteCourse  = async (req , res) => {
+     try {
+         const {courseId} = req.body;
+         
+         const course = await Course.findById(courseId);
+         if(!course){
+          return res.status(404).json({
+            success:false , 
+            message:"no course available with this courseId" , 
+          });
+
+         }
+
+         //first task is to enenroll or removeCourseId from the courseId 
+         const studentEnrolled =  course.studentsEnrolled;
+         for(const studentId of studentEnrolled){
+            await User.findByIdAndUpdate(studentId , {
+              $pull : {
+                courses:courseId , 
+              }
+            });
+         }
+
+
+         // now delete all the sections and corresponding subsections from the  
+         const courseSections = course.courseContent;
+         for(const sectionId of courseSections){
+              const section = await Section.findById(sectionId);
+              if(section){
+                  const subSections = section.subSection;
+                  for(const subSectionId of subSections){
+                    await Subsection.findByIdAndDelete(subSectionId);
+                  }
+              }   
+              
+              // now delete the section to
+              await Section.findByIdAndDelete(sectionId);
+         }
+
+
+
+         //now delete corresponding course also 
+         await Course.findByIdAndDelete(courseId);
+
+
+         return res.status(200).json({
+            success : true , 
+            message : "course deleted successfully" , 
+            
+         })
+
+     }catch(error){
+        console.log(error);
+        return res.status(500).json({
+          success: false,
+          message: error.message,
+        });
+     }
+}

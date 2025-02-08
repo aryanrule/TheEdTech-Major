@@ -19,6 +19,9 @@ import Settings from "./Dashboard/Settings";
 import { useSelector } from "react-redux";
 import AddCourses from "./components/Core/AddCourse";
 import { ACCOUNT_TYPE } from "./utils/constant";
+import MyCourses from "./components/Core/MyCourses/MyCourses";
+import EditCourse from "./components/EditCourse.jsx";
+import Catelog from "./pages/Catelog.jsx";
 
 function App() {
   const {user} = useSelector((state) => state.profile);
@@ -37,6 +40,9 @@ function App() {
         <Route path ="/signUp" element = {<SignUp/>}/>
         
         <Route path ='/verify-email' element={<VerifyEmail/>}/>
+        <Route path='/catalog/:catelogName' element= {<Catelog/>}/>
+
+       
 
         <Route 
          element = {
@@ -52,6 +58,9 @@ function App() {
         {user?.accountType === ACCOUNT_TYPE.INSTRUCTOR  && (
           <>
           <Route path = 'dashboard/add-course' element={<AddCourses/>}/>
+          <Route path='dashboard/my-courses' element = {<MyCourses/>}/>
+
+          <Route path="dashboard/edit-course/:courseId" element= {<EditCourse/>}/>
           </>
         )}
        

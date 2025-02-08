@@ -55,13 +55,27 @@ const CourseBuilder = () => {
     setLoading(false);
   }
 
-  const goBack = (e) => {
+  const goBack = () => {
        dispatch(setStep(1));
        dispatch(setEditCourse(true));
   }
 
-  const goToNext = (e) => {
-       
+  const goToNext = () => {
+      //  validate you have a section before you move to the publish page
+      // also remember one thing that is each section should atleast contain one subsection 
+      if(course?.courseContent?.length === 0){
+        toast.error("please add atleast one section ");
+        return 
+      }
+      
+      if(course?.courseContent.some((section) => section?.subSection.length  === 0)){
+        //  toast.error(`please add atleast one subsection in ${section?.subSection?.title}`);
+        toast.error("please add atleat one subsection in each section");
+         return ;
+      }
+      
+      dispatch(setStep(3));
+      
   }
   
   const cancelEdit = () => {

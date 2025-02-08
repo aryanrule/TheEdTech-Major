@@ -6,5 +6,5 @@ export const ACCOUNT_TYPE = {
 
 export const STATUS = {
     DRAFT : 'Draft' , 
-    PUBLISH : 'publish' 
+    PUBLISH : 'Published' 
 }  

@@ -16,6 +16,7 @@ const NestedView = ({handleEditSectionName}) => {
   const dispatch = useDispatch();
   const [addSubSection  , setAddSubSection] = useState(null); 
   const [viewSubSection , setViewSubsection]= useState(null);
+  const [editSubSection , setEditSubsSection] = useState(null);
 
   
   useEffect(() => {
@@ -102,8 +103,10 @@ const NestedView = ({handleEditSectionName}) => {
                                       </div>
                                        
                                     <div  className="flex items-center gap-x-3">
-
-                                      <button >
+                                       
+                                     {/* editing the subsection is pending */}
+                                      <button 
+                                       >
                                           <MdEdit/>
                                       </button>
                                       
@@ -146,7 +149,7 @@ const NestedView = ({handleEditSectionName}) => {
 
         {viewSubSection ?
         (<SubSectionModal view = {true}   modalData={viewSubSection} setModalData={setViewSubsection}/>) : (<></>)}
-
+        
 
 
     </>

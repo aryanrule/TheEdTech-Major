@@ -114,7 +114,7 @@ const SubSectionModal = ({
             errors={errors}
             video={true}
             viewData={view ? modalData.videoUrl : null}
-        
+            
           />
 
 
