@@ -22,6 +22,7 @@ import { ACCOUNT_TYPE } from "./utils/constant";
 import MyCourses from "./components/Core/MyCourses/MyCourses";
 import EditCourse from "./components/EditCourse.jsx";
 import Catelog from "./pages/Catelog.jsx";
+import CourseDetails from "./pages/CourseDetails.jsx";
 
 function App() {
   const {user} = useSelector((state) => state.profile);
@@ -41,7 +42,7 @@ function App() {
         
         <Route path ='/verify-email' element={<VerifyEmail/>}/>
         <Route path='/catalog/:catelogName' element= {<Catelog/>}/>
-
+        <Route path = "courses/:courseId" element = {<CourseDetails/>}/>
        
 
         <Route 

@@ -135,8 +135,13 @@ export default {
       boxShadow: {
         'text-shadow': '2px 2px 4px rgba(0, 72, 56, 0.6), -2px -2px 4px rgba(0, 72, 56, 0.4)',
       },
-
+      maxWidth: {
+        maxContent: "1260px",
+        maxContentTab: "650px"
+      },
     },
+    
+    
   },
-  plugins: [nextui()],
+  plugins: [],
 }

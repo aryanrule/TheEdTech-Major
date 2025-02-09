@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {createCourse  , showAllCourses , editCourse , findCourseByInstructor, deleteCourse , getFullCourseDetails} = require('../Controllers/Course');
+const {createCourse  , showAllCourses , editCourse , findCourseByInstructor, deleteCourse , getFullCourseDetails , courseDetails} = require('../Controllers/Course');
 
 const {createCategory , getAllCategory , getCategoryPageDetails} = require('../Controllers/Category');
 
@@ -21,7 +21,9 @@ router.get('/getAllCourses', auth , showAllCourses);
 router.post('/editCourse' , auth , isInstructor , editCourse );
 router.get('/instructorCourse', auth, isInstructor , findCourseByInstructor);
 router.post('/deleteCourse' , auth , isInstructor , deleteCourse);
-router.post('/getFullCourseDetails' , auth , isInstructor , getFullCourseDetails);
+router.post('/getFullCourseDetails' , auth , getFullCourseDetails);  // kind of a pending might be changed in the future 
+router.post('/courseDetails' ,  courseDetails);
+
 
 router.post('/addSection' , auth , isInstructor , CreateSection);
 router.post('/updateSection' , auth , isInstructor , updateSection);

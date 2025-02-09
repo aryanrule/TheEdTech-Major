@@ -38,6 +38,8 @@ export const CourseEndpoints = {
     FIND_INSTRUCTORS_COURSE : BASE_URL + '/Courses/instructorCourse' , 
     DELETE_COURSE : BASE_URL + '/Courses/deleteCourse' ,
     FULL_COURSE_DETAILS : BASE_URL + '/Courses/getFullCourseDetails'  , 
+    COURSE_DETAILS : BASE_URL + '/Courses/courseDetails'
+
     
 }
 

@@ -4,6 +4,9 @@ const Category = require("../Models/Category");
 const { uploadImageToCloudinary } = require("../Utils/uploadToCloud");
 const Section = require("../Models/Section");
 const Subsection = require("../Models/Subsection");
+const {  convertedtimeDuration} = require("../Utils/timeDuration");
+
+
 
 exports.createCourse = async (req, res) => {
   try {
@@ -258,7 +261,60 @@ exports.showAllCourses = async (req, res) => {
   }
 };
 
+exports.courseDetails = async (req , res) => {
+    try {
+        const {courseId} = req.body;
+        const courseDetails = await Course.findOne({_id: courseId})
+        .populate({
+          path : "instructor",
+          populate:{
+            path : "additionalDetails"
+          } 
+        })
+        .populate("category")
+        .populate({
+          path :"courseContent" , 
+          populate : {
+             path : "subSection" , 
+             select:"-videoUrl" , 
+          }
+        }).exec();
 
+        if(!courseDetails){
+          return res.status(400).json({
+            success:false , 
+            message:`Could not find course with id: ${courseId}`, 
+          })
+        }
+        
+        let totalDurationInSectonds = 0 ;
+        courseDetails.courseContent.forEach((content) => {  // content means section 
+           content.subSection.forEach((subSection) => {
+              const timeDurationInSeconds = parseInt(subSection.timeDuration);
+              totalDurationInSectonds += timeDurationInSeconds;
+           })
+        })
+        
+        // simply we need tpo convert the seconds into minutes in this 
+
+        const totalDuration = convertedtimeDuration(totalDurationInSectonds); 
+
+        return res.status(200).json({
+          success:true , 
+          data :{
+            courseDetails , 
+            totalDuration : totalDuration  ,
+
+          }
+        })
+
+    }catch(error){
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
+    } 
+}
 
 
 //this is a controller where i need the complete data of the course
@@ -277,7 +333,14 @@ exports.getFullCourseDetails = async (req , res) => {
             }
 
           }).populate("category")
-          .populate("")
+          .populate("ratingAndReviews")
+          .populate({
+            path : "instructor" , 
+            populate:{
+              path : "additionalDetails" , 
+            }
+          }).exec();
+
           
           if(!courseDetails){
             return res.status(400).json({

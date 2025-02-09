@@ -52,10 +52,13 @@ const Catelog = () => {
 
 
   useEffect(()=> {
-      findcategoryPageDetails();
-      console.log(catalogPageData);
-      console.log("all courses in selected categpry"   , catalogPageData?.data?.selectedCategory?.courses);
-  } ,[]);
+      if(categoryId){
+        findcategoryPageDetails();
+        console.log(catalogPageData);
+        console.log("all courses in selected categpry"   , catalogPageData?.data?.selectedCategory?.courses);
+      }
+     
+  } ,[categoryId]);
 
   if(loading || !catalogPageData){
     return (
@@ -113,6 +116,8 @@ const Catelog = () => {
             <div>
                 <Course_slider Courses = {catalogPageData?.data?.selectedCategory?.courses}/>
             </div>
+
+         
 
 
           

@@ -81,6 +81,7 @@ exports.getCategoryPageDetails = async (req , res) => {
             path : "courses" , 
             match:{status:"Published"} , 
             populate:"ratingAndReviews"  , 
+            populate:"instructor" , 
           }).exec();
 
           console.log("Selected Course" , selectedCategory);

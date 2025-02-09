@@ -41,11 +41,3 @@
   color: #888;
 } */
 
- 
-.form-style {
-  @apply rounded-lg  p-3 text-[16px] leading-[24px] text-black shadow-[0_1px_0_0] shadow-white/50 placeholder:text-richblack-400 focus:outline-none;
-} 
-
-.section_heading {
-  @apply text-2xl font-bold text-richblack-5 lg:text-4xl;
-}

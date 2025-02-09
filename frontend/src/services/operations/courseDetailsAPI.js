@@ -247,6 +247,7 @@ export const getFullCourseDetails = async (courseId , token)=> {
         if(!response?.data?.success){
           throw new Error("coudn't get the full details of course");
        }
+       console.log(response);
 
        result = response?.data?.data; 
        
@@ -263,4 +264,25 @@ export const getFullCourseDetails = async (courseId , token)=> {
 }
 
 
+export const FetchcourseDetails = async (courseId) => {
+     const toastId = toast.loading("Loading...")  
+     let result = null;
+     try {
+        const response = await ApiConnector("POST" ,  CourseEndpoints.COURSE_DETAILS , {courseId}); // dont need token 
+        // console.log(response);
+        // console.log(response.data.success);
+        if(!response.data.success){
+          throw new Error("coudn't get the full details of course");
+        }
 
+        result = response?.data;
+        // now result contains a full object of courseDetails and also it contains the time duration
+        
+     }catch(error){
+      console.log(error);
+      toast.error("error");
+      result = error.response.data
+     }
+     toast.dismiss(toastId)
+     return result;
+}
