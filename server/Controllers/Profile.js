@@ -6,34 +6,7 @@ const { uploadImageToCloudinary } = require('../Utils/uploadToCloud');
 
 exports.UpdateProfile = async (req , res) => {
     try{
-      const {DateOfBirth="",about="" , gender , contactNumber} = req.body;
-      const UserId = req.user.id;
-
-      if(!contactNumber || !UserId || !gender){
-        return res.status(400).json({
-            success:false,
-            message:'All fields are required',
-        });
-      }
-      
-      
-      const userDetails = await User.findById(UserId);
-      const profile = await Profile.findById(userDetails.additionalDetails);  //or you cab update also 
-
-        
-      profile.DateOfBirth = DateOfBirth;
-      profile.about = about;
-      profile.contactNumber = contactNumber;
-      profile.gender = gender;
-
-      await profile.save();
-      
-
-      return res.status(200).json({
-        success:true , 
-        message:"profile is created successfully", 
-        profile , 
-      });
+         
 
     }catch(e){
         return res.status(500).json({

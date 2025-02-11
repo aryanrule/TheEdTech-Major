@@ -167,6 +167,9 @@ body{
   @apply rounded-lg bg-white p-3 text-[16px] leading-[24px] text-white shadow-[0_1px_0_0] shadow-white/50  focus:outline-none;
 } */
 
+.lable-style {
+  @apply text-[14px] text-white;
+}
 
 .yellowButton {
   @apply cursor-pointer rounded-md bg-yellow-50 px-[20px] py-[8px] font-semibold text-richblack-900;

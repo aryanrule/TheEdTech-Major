@@ -6,15 +6,18 @@ import UpdatePassword from '../components/Core/Settings/UpdatePassword'
 
 const Settings = () => {
   return (
-    <div >
-         <h2 className='font-bold text-2xl text-mango-green'>Edit</h2>
-
+    <>
+         <h2 className="mb-14 text-3xl font-medium text-black">
+         Edit
+         </h2>
          <UpdatePicture/>
-         <ProfileInfo/>
-         <UpdatePassword/>
-         <DeleteAccount/>
 
-    </div>
+         <ProfileInfo/>
+
+         <UpdatePassword/>
+
+         <DeleteAccount/>
+    </>
   )
 }
 

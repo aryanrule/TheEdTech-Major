@@ -23,6 +23,7 @@ import MyCourses from "./components/Core/MyCourses/MyCourses";
 import EditCourse from "./components/EditCourse.jsx";
 import Catelog from "./pages/Catelog.jsx";
 import CourseDetails from "./pages/CourseDetails.jsx";
+import AddToCart from "./pages/AddToCart.jsx";
 
 function App() {
   const {user} = useSelector((state) => state.profile);
@@ -43,8 +44,11 @@ function App() {
         <Route path ='/verify-email' element={<VerifyEmail/>}/>
         <Route path='/catalog/:catelogName' element= {<Catelog/>}/>
         <Route path = "courses/:courseId" element = {<CourseDetails/>}/>
-       
 
+
+
+       
+       {/* this are nested routes */}
         <Route 
          element = {
            <PrivateRoute>
@@ -64,8 +68,19 @@ function App() {
           <Route path="dashboard/edit-course/:courseId" element= {<EditCourse/>}/>
           </>
         )}
-       
-           
+
+
+        {/* routes only for student */}
+        {user?.accountType === ACCOUNT_TYPE.STUDENT  && (
+          <>
+          <Route path = 'dashboard/enrolled-courses' element ={<EnrolledCourses/>}/>
+          <Route path = 'dashboard/cart' element ={<AddToCart/>}/>
+          </>
+         
+        )}
+
+
+
         </Route>
     
         <Route path = '*' element = {<Error/>}/>         

@@ -16,7 +16,14 @@ export const sidebarLinks = [
         icon:'VscMortarBoard' , 
     }  , 
     {
-        id:3 , 
+        id : 3  , 
+        name : 'Cart' , 
+        path : '/dashboard/cart' , 
+        type:ACCOUNT_TYPE.STUDENT , 
+        icon : 'VscArchive'
+    } , 
+    {
+        id:4 , 
         name:'My Courses' , 
         path:'/dashboard/my-courses' , 
         type:ACCOUNT_TYPE.INSTRUCTOR , 
@@ -24,14 +31,14 @@ export const sidebarLinks = [
 
     } , 
     {
-        id : 4 , 
+        id : 5 , 
         name:'Add Courses' , 
         path:'/dashboard/add-course' , 
         type:ACCOUNT_TYPE.INSTRUCTOR , 
         icon :'VscAdd'
     }  , 
     {
-    id: 5,
+    id: 6,
     name: "Dashboard",
     path: "/dashboard/instructor",
     type: ACCOUNT_TYPE.INSTRUCTOR,

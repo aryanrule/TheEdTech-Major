@@ -3,83 +3,122 @@ import { useSelector } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import BtnG from "../components/Core/HomePage/BtnG";
 import { Link } from "react-router-dom";
+import IconBtn from "../components/Common/IconBtn";
+import { RiEditBoxLine } from "react-icons/ri";
 
 const MyProfile = () => {
   const { user } = useSelector((state) => state.profile);
 
   
   return (
-    <div>
-      <h3 className="font-bold text-2xl text-mango-green">My profile</h3>
-      <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[150px] flex justify-between items-center  bg-[#E5E4E2] border-mango-green">
-        <div className=" flex  gap-2 p-4 ">
+    <>
+      <h1 className="mb-14 text-3xl font-medium text-richblack-5">
+        My Profile
+      </h1>
+      <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="flex items-center gap-x-4">
           <img
-            src={user.image}
-            className="w-[50px]  aspect-square rounded-full"
+            src={user?.image}
+            alt={`profile-${user?.firstName}`}
+            className="aspect-square w-[78px] rounded-full object-cover"
           />
-          <div className="ml-3">
-            <h5 className="font-bold text-[20px] ">
-              {user.firstName} {user.lastName}
-            </h5>
-            <p>{user.email}</p>
+          <div className="space-y-1">
+            <p className="text-lg font-semibold text-richblack-5">
+              {user?.firstName + " " + user?.lastName}
+            </p>
+            <p className="text-sm text-richblack-300">{user?.email}</p>
           </div>
         </div>
-
-        <Link to="/dashboard/settings">
-          <button
-            className="bg-mango-green text-lemon-yellow hover:text-mango-green hover:bg-white px-4 py-2  text-sm  text-center rounded-xl transition-all duration-500 ease-in-out mr-5"
-            style={{ minWidth: "100px", minHeight: "40px" }}
+        <IconBtn
+          text="Edit"
+          // onclick={() => {
+          //   navigate("/dashboard/settings")
+          // }}
+        >
+          <RiEditBoxLine />
+        </IconBtn>
+      </div>
+      <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="flex w-full items-center justify-between">
+          <p className="text-lg font-semibold text-richblack-5">About</p>
+          <IconBtn
+            text="Edit"
+            // onclick={() => {
+            //   navigate("/dashboard/settings")
+            // }}
           >
-            <div className="flex items-center justify-center gap-3">
-              Edit <BiEdit className="text-lg" />{" "}
+            <RiEditBoxLine />
+          </IconBtn>
+        </div>
+        <p
+          className={`${
+            user?.additionalDetails?.about
+              ? "text-richblack-5"
+              : "text-richblack-400"
+          } text-sm font-medium`}
+        >
+          {user?.additionalDetails?.about ?? "Write Something About Yourself"}
+        </p>
+      </div>
+      <div className="my-10 flex flex-col gap-y-10 rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12">
+        <div className="flex w-full items-center justify-between">
+          <p className="text-lg font-semibold text-richblack-5">
+            Personal Details
+          </p>
+          <IconBtn
+            text="Edit"
+            // onclick={() => {
+            //   navigate("/dashboard/settings")
+            // }}
+          >
+            <RiEditBoxLine />
+          </IconBtn>
+        </div>
+        <div className="flex max-w-[500px] justify-between">
+          <div className="flex flex-col gap-y-5">
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">First Name</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.firstName}
+              </p>
             </div>
-          </button>
-        </Link>
-      </div>
-
-      <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[300px] flex flex-col items-center bg-[#E5E4E2] p-6 shadow-lg border-mango-green">
-        {/* Header Section */}
-        <div className="flex justify-between w-full items-center mb-6">
-          <p className="font-bold text-lg text-gray-800">Personal Details</p>
-
-          <Link to="/dashboard/settings">
-            <button
-              className="bg-mango-green text-lemon-yellow hover:text-mango-green hover:bg-white px-4 py-2 text-sm text-center rounded-xl transition-all duration-500 ease-in-out flex items-center gap-2"
-              style={{ minWidth: "100px", minHeight: "40px" }}
-            >
-              Edit <BiEdit className="text-lg" />
-            </button>
-          </Link>
-        </div>
-
-        {/* Details Section */}
-        <div className="grid grid-cols-2 gap-6 w-full">
-          {/* First Column */}
-          <div className="flex flex-col">
-            <p className="text-gray-600 font-semibold">First Name</p>
-            <h2 className="text-gray-900 font-bold text-lg">
-              {user.firstName}
-            </h2>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Email</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.email}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Gender</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.additionalDetails?.gender ?? "Add Gender"}
+              </p>
+            </div>
           </div>
-          <div className="flex flex-col">
-            <p className="text-gray-600 font-semibold">Last Name</p>
-            <h2 className="text-gray-900 font-bold text-lg">{user.lastName}</h2>
-          </div>
-
-          {/* Second Column */}
-          <div className="flex flex-col">
-            <p className="text-gray-600 font-semibold">Email</p>
-            <h2 className="text-gray-900 font-bold text-lg">{user.email}</h2>
-          </div>
-          <div className="flex flex-col">
-            <p className="text-gray-600 font-semibold">Phone Number</p>
-            <h2 className="text-gray-900 font-bold text-lg">
-              {user.contactNumber}
-            </h2>
+          <div className="flex flex-col gap-y-5">
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Last Name</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.lastName}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Phone Number</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {user?.additionalDetails?.contactNumber ?? "Add Contact Number"}
+              </p>
+            </div>
+            <div>
+              <p className="mb-2 text-sm text-richblack-600">Date Of Birth</p>
+              <p className="text-sm font-medium text-richblack-5">
+                {/* {formattedDate(user?.additionalDetails?.dateOfBirth) ??
+                  "Add Date Of Birth"} */}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

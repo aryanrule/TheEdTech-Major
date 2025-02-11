@@ -1,9 +1,68 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import toast from 'react-hot-toast'
 import { BsFillCaretRightFill } from "react-icons/bs"
 import { FaShareSquare } from "react-icons/fa"
+import copy from "copy-to-clipboard"
+import { useDispatch, useSelector } from 'react-redux'
+import { ACCOUNT_TYPE } from '../../../utils/constant'
+import { useNavigate } from 'react-router-dom'
+import { addToCart } from '../../../slices/cartSlice'
 
-const CourseDetailsCard = ({course}) => {
-  
+const CourseDetailsCard = ({course , setConfirmationModal}) => {
+    
+    const {user} = useSelector((state) => state.profile);
+    const {token} = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+
+    const handleShare = () => {
+        copy(window.location.href)
+        toast.success("Link copied to clipboard")
+    }
+    
+    const handleAddtoCart = ()=> {
+          //validations 
+          if( user && user?.accountType === ACCOUNT_TYPE.INSTRUCTOR){
+               toast.error("you are an instructor cannnot buy the course");
+               return ;
+          }
+          if(!token){
+            // means you are not logged in 
+            setConfirmationModal({
+                text1 : "you are not logged in!" , 
+                text2 : "please login to add to the cart" , 
+                btn1Text :"login" , 
+                btn2Text : "cancel" , 
+                btn1Handler: () => navigate("/login") , 
+                btn2Handler : () => setConfirmationModal(null)
+            })
+
+          }
+          if(token){
+            // add to the cart
+            dispatch(addToCart(course));
+            
+          }
+    }
+
+
+    const handleBuyCourse = () => {
+        console.log("buy krlo");
+    }
+
+    const {cart} = useSelector((state)=> state.cart);
+    const {total} = useSelector((state) => state.cart); 
+
+    useEffect(() => {
+        console.log(cart);
+        console.log(total);
+    } , [cart]);
+
+
+
+
+    
   const {
     thumbnail : thumbnailImage , 
     price : currentPrice} = course;
@@ -28,13 +87,22 @@ const CourseDetailsCard = ({course}) => {
            <div className="flex flex-col gap-4">
 
               {/* here lots of changes are requried  */}
-               <button className='yellowButton'>
-                      buy now 
+               <button 
+               onClick={user && user?.studentsEnrolled?.includes(user._id) ? () => navigate('/dashboard/enrolled-courses') : handleBuyCourse}
+               className='yellowButton'
+               >
+                    {user && user?.studentsEnrolled?.includes(user._id) ? "Go to courses" : "Buy now"}
                </button>
-
-               <button className='blackButton'>
+               
+               {
+               (!user || !course?.studentsEnrolled.includes(user._id)) &&
+               <button              
+               onClick={handleAddtoCart}
+               className='blackButton'>        
                     Add to cart
                </button>
+               }
+              
            </div>
 
            <div>
@@ -64,7 +132,7 @@ const CourseDetailsCard = ({course}) => {
          <div className="text-center">
             <button
             className="mx-auto flex items-center gap-2 py-6 text-yellow-100 "
-            
+            onClick={handleShare}
             >
               <FaShareSquare size={15} /> Share  
             </button>

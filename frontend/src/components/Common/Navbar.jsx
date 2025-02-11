@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "../../utils/constant";
 import ProfileDropdown from "../Core/HomePage/Nav/ProfileDropdown";
 import { fetchAllCategories } from "../../services/operations/courseDetailsAPI";
-
+ import {AiOutlineShoppingCart} from  "react-icons/ai";
 
 const Navbar = () => {
   const location = useLocation();
@@ -21,8 +21,13 @@ const Navbar = () => {
   const [subLinks, setSubLinks] = useState([]);
   const [loading, setLoading] = useState(false);
   const { token } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.profile);
+  const { user } = useSelector((state) => state.profile);  
+  const {totalItems} = useSelector((state) => state.cart);
 
+
+  useEffect(() => {
+    console.log("totalItems" ,  totalItems);
+  } , []);
   const dropDown = useRef(null);
 
   const matchroute = (route) => {
@@ -156,7 +161,15 @@ const Navbar = () => {
                 {
                   user && user.accountType !== ACCOUNT_TYPE.INSTRUCTOR ? 
                   (<div className="flex items-center justify-center  gap-3">
-                    <img src={fileManager.cart} className="w-[30px] h-[30px]"/>
+                    <Link to="/dashboard/cart" className="relative">
+              <AiOutlineShoppingCart className="text-[40px] text-richblack-100" />
+              {totalItems > 0 && (
+                <span className="absolute bottom-6 right-[7px] grid h-5 w-5 place-items-center overflow-hidden rounded-full bg-richblack-600 text-center text-xs font-bold text-yellow-100">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
+                    
                     {/*  on thing is pending here which is how many items you have purchased */}
                     <ProfileDropdown/>
                   </div>) : (<div>

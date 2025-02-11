@@ -1,18 +1,36 @@
 import { SettingsEndPoints } from "../api";
 import {toast} from 'react-hot-toast';
 import { ApiConnector } from "../apiConnector";
+import { setUser } from "../../slices/profileSlice";
+
 
 //upating the profile picture 
-export function UpdateProfilePicture(token , formData){
-     return async(dispatch)=> {
-        try{
-            return 0;
-        }catch(error){
-            console.log()
+export function UpdateProfilePicture(formdata , token){
+    //  we can also use normal async await but we are using redux thunk for this 
+     return async (dispatch) => {
+        const toastId = toast.loading("uploading");
+        try {
+            const response = await ApiConnector("PUT" , SettingsEndPoints.UPDATE_PROFILE_PICTURE , formdata , {
+            Authorization : `Bearer ${token}`
+            })
+            
+            if (!response?.data?.success) {
+                throw new Error(response.data.message)
+            }
+            
+            toast.success("Image uploaded succesfully");
+            console.log(response);
+            dispatch(setUser(response?.data?.updatedProfile));
+            
+            
+        }catch(error){ 
+            console.log("internal server error" , error);
+            toast.error(error.message);
         }
 
-        
+        toast.dismiss(toastId);
      }
+     
 }
 
 export function deleteAccount(user , navigate){

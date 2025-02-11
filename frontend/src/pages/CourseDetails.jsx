@@ -8,12 +8,16 @@ import { formateDate } from "../services/formateDate";
 import CourseDetailsCard from "../components/Core/Course/CourseDetailsCard";
 import ReactMarkdown from "react-markdown";
 import CourseAccordianBar from "../components/Core/Course/CourseAccordianBar";
+import ConfirmmationModal from "../Dashboard/ConfirmmationModal";
+
 
 const CourseDetails = () => {
   // you just need the courseId here to build this coponents
   const { courseId } = useParams();
   const [response, setResponse] = useState(null);
   const { loading } = useSelector((state) => state.profile);
+  const [confirmationModal , setConfirmationModal]= useState(null);
+  
   
   
   const [isActive , setIsActive] = useState(Array(0));
@@ -23,6 +27,7 @@ const CourseDetails = () => {
       setIsActive( !isActive.includes(id) ? isActive.concat([id]) : isActive.filter((ID) => ID != id));
       // if id is not there then add it else remove it
       // using this to toggle 
+
   }
 
 
@@ -140,7 +145,7 @@ const CourseDetails = () => {
         <div className="right-[1rem] top-[60px] mx-auto hidden min-h-[600px] w-1/3 max-w-[410px] translate-y-24 md:translate-y-0 lg:absolute  lg:block">
           <CourseDetailsCard
             course={response?.data?.courseDetails}
-            // setConfirmationModal={setConfirmationModal}
+            setConfirmationModal={setConfirmationModal}
             // handleBuyCourse={handleBuyCourse}
           />
         </div>
@@ -239,6 +244,11 @@ const CourseDetails = () => {
       </div>
 
       {/* footer leftover */}
+
+
+
+      {/* confirmationModal */}
+      {confirmationModal && <ConfirmmationModal modalData={confirmationModal}/>}
     </>
   );
 };

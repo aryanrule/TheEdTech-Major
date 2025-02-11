@@ -1,93 +1,111 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { UpdateProfilePicture } from "../../../services/operations/settingsApi";
+import IconBtn from "../../Common/IconBtn";
+import { FiUpload } from "react-icons/fi"
+import toast from "react-hot-toast";
+
 
 const UpdatePicture = () => {
-  /* making a logic so that user can see the image how it looks after uploading before even uploading on the server */
-  const {token} = useSelector((state)=> state.auth);
-  const { user } = useSelector((state) => state.profile);
-  const InputRef = useRef(null);
+ 
+  const {token} = useSelector((state) => state.auth);
+  const {user} = useSelector((state) => state.profile);
+  const [previewSrc , setPreviewSrc]  = useState(null);
   const [imageFile , setImageFile] = useState(null);
-  const [loading , setLoading] = useState(false);
+  const [loading , setLoading] = useState(null);
   const dispatch = useDispatch();
 
-  function handleClick(){
-     InputRef.current.click();
+  const hRef = useRef();
+  const handleClick = () => {
+      hRef.current.click()
   }
 
-  function changeHandler(event){
-   const file = event.target.files[0];
-   console.log(file);
-    if(file){
-      setImageFile(file);
-      console.log(imageFile);
-      // preview pending 
-    }
+  const handleFileChange = (e) =>{
+        
+        const file = e.target.files[0]
+        console.log(file);
+        if(file){
+            setImageFile(file);
+            previewImage(file);
+        }
   }
 
-  function uploadHandler() {
-       try{
-         console.log("uploading....");
-         setLoading(true);
-         const formData = new FormData();
-         formData.append("UpdatePicture",imageFile);  // creating a new formData object to upload 
-         console.log("formData" , formData);
-        //  dispatch(UpdateProfilePicture(token , formData)).then(() => {
-        //     setLoading(false);
-        //  })
-          setLoading(false);
-       }catch(e){
-          console.log("error in uploading the image");
+  const previewImage = (file) => {
+       const reader = new FileReader();
+       reader.readAsDataURL(file);
+       reader.onloadend = () =>{
+           setPreviewSrc(reader.result);
        }
   }
-  
 
+  const handleChangeProfilePic =  () => {
+        try {
+           if(!imageFile){  // if null
+            toast.error("please select a picture");
+           }
+           else {
+            console.log("uploading ....") ;
+            setLoading(true);
+            const formdata = new FormData();
+            formdata.append("UpdatePicture" , imageFile);  
+            dispatch(UpdateProfilePicture(formdata , token)).then(() => {
+              setLoading(false);
+            })
+           }
+           
+
+        }catch(error){
+           console.log("ERROR MESSAGE - ", error.message) 
+        }
+  }
+  
+  
+  useEffect(() => {
+    console.log("user"  , user);
+    if(imageFile){
+      previewImage(imageFile);
+    }
+  } , [imageFile]);
   
   return (
-    <div className="w-[90%] border-3 rounded-lg mt-[40px] min-h-[160px] flex justify-between items-center  bg-[#E5E4E2] border-mango-green">
-      <div className=" flex  gap-5 p-4 ">
-        <img
-          src={user?.image}
-          className="w-[90px] rounded-full object-cover"
-        />
-
-        <div className="ml-3  flex flex-col gap-4">
-          <h5 className="font-bold text-[25px] ">Change Profile Picture</h5>
-
-          <div className="flex">
-          <input
-            type="file"
-            className="hidden"
-            ref = {InputRef}
-            onChange={changeHandler}
-            accept="image/png, image/gif, image/jpeg"
+    <>
+       <div className="flex items-center justify-between rounded-md border-[1px] border-richblack-700 bg-richblack-800 p-8 px-12 text-richblack-5">
+        <div className="flex items-center gap-x-4">
+          <img
+            src = { previewSrc || user?.image}
+            className="aspect-square w-[78px] bg-white rounded-full object-cover"
           />
-             
-          <button
-              className="bg-white  text-mango-green hover:text-lemon-yellow hover:bg-white px-4 py-2  text-sm  text-center rounded-xl transition-all duration-500 ease-in-out mr-5"
-              style={{ minWidth: "100px", minHeight: "40px" }}
-              onClick={handleClick}
-            >
-              <div className="flex items-center justify-center gap-3">
-                Select  
-              </div>
-            </button>
-             
-            <button
-              className="bg-mango-green text-lemon-yellow hover:text-mango-green hover:bg-white px-4 py-2  text-sm  text-center rounded-xl transition-all duration-500 ease-in-out mr-5"
-              style={{ minWidth: "100px", minHeight: "40px" }}
-              onClick={uploadHandler}
-            >
-              <div className="flex items-center justify-center gap-3">
-                Upload <MdOutlineFileUpload className="text-lg" />{" "}
-              </div>
-            </button>
-
+          <div className="space-y-2">
+            <p>Change Profile Picture</p>
+            <div className="flex flex-row gap-3">
+              <input
+                type="file"
+                ref={hRef}
+                className="hidden"
+                accept="image/png , image/gif  , image/jpeg"
+                onChange={handleFileChange}
+               
+              />
+              <button
+                onClick={handleClick}
+                className="cursor-pointer rounded-md bg-richblack-700 py-2 px-5 font-semibold text-richblack-50"
+              >
+                Select
+              </button>
+              <IconBtn
+                text = {loading ? "uploading..." : "upload"}
+                onclick={handleChangeProfilePic}
+              >
+                {!loading && (
+                  <FiUpload className="text-lg text-white" />
+                )}
+              </IconBtn>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
