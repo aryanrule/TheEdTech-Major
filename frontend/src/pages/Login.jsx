@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/operations/authApi";
 import { useDispatch } from "react-redux";
+
+import fileManager from "../assets/assets";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,21 +25,36 @@ const Login = () => {
   
 
   return (
-    <div>
-      <div>
+    <div className="h-screen w-screen overflow-x-hidden flex items-center justify-center gap-6">
+      <div className="flex  flex-col items-center  gap-5 ">
+         
+         <h1 className="font-bold text-4xl">Join AceEdify Today !</h1>
+         <h4 className="font-medium  ">Yogesh and Rahul already  learning at a pace ! Lets learn with them   </h4>
+
+         <div className="flex gap-3">
+             <img src={fileManager.s1} className="h-[60px] rounded-2xl border-3 border-mango-green border-2"/>
+             <img src={fileManager.s3} className="h-[60px] w-[50px] rounded-full border-mango-green border-2 "/>
+             <img src={fileManager.s4} className="h-[60px]  w-[70px] rounded-full border-mango-green border-2"/>
+             <img src={fileManager.s5} className="h-[60px] w-[70px] rounded-full border-mango-green border-2"/>
+             <img src={fileManager.s2} className="h-[60px] rounded-full border-mango-green border-2 "/>
+
+         </div>
      
       </div>
+      
+      <div className="h-[400px] w-[1px] bg-mango-green opacity-1">
+
+      </div>
+
+
       <div>
         <form onSubmit={submitHandler}>
         
-          <div className="flex gap-10 h-[50px] bg-slate-200  w-[300px] items-center justify-center rounded-2xl cursor-pointer ">
-            <div className="">Student</div>
-            <div className="">Instructor</div>
-          </div>
+        
 
-          <div>
-                <div>
-                <label htmlFor="email">Email Address</label>
+          <div className="flex  flex-col  gap-3 ">
+                <div className="flex flex-col gap-2">
+                <label htmlFor="email" className="font-bold text-xl">Email Address</label>
                 <input 
                   placeholder="Enter Your Email"
                   name='email'
@@ -45,11 +62,14 @@ const Login = () => {
                   onChange={changeHandler}
                   required={true}
                   type="text" 
+                  className="form-style border-mango-green border-2 w-[300px]"
                 />
                 </div>
+
                 
-                <div>
-                <label htmlFor = "password">Enter Password</label>
+                
+                <div className="flex  flex-col mt-2 ">
+                <label htmlFor = "password" className="font-bold text-xl">Enter Password</label>
                 <input
                   placeholder="Enter your password"
                   name="password"
@@ -57,18 +77,42 @@ const Login = () => {
                   onChange={changeHandler}
                   required={true}
                   type="text"
+                  className="form-style border-mango-green border-2 w-[300px]"
                 />
                 </div>
 
+                
+                
+                <div className="text-center">Forgot Password
+                
                 <Link to='/resetPassword'>
-                
-                <div>Forgot Password</div>
-                
+                <span className="text-mango-green">  Click here ! </span>
                 </Link>
-                <button type='submit'>Sign In</button>
-          </div>           
+          
+                </div>
+                
+                
+                
+                
+                    <button
+                     type="submit"
+                     className="greenButton w-[300px]">
+                         login
+                    </button>
 
+
+                    <Link to='/signUp'>
+                       <button className="yellowButton w-[300px]">
+                             signUp
+                       </button>
+                    </Link>
+                
+          </div>       
+  
         </form>
+        
+         
+
       </div>
     </div>
   );

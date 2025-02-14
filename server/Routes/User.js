@@ -15,6 +15,9 @@ router.post("/login",   login);  /*     login      */
 
 router.post("/checkuser" , checkUser)
 
+
+router.post("/changepassword" , auth , changePassword);
+
 ///3 routes leftover 
 // router.post('/changePassword' , auth ,  changePassword );   this thing is leftover 
 

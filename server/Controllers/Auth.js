@@ -359,56 +359,60 @@ exports.login = async(req,res)=>{
 
 exports.changePassword = async (req, res) => {
     try {
-        const userId = req.user.id;
-        const userDetails = await User.findById(userId);
-        const { oldPassword, newPassword, confirmNewPassword } = req.body;
-       
-        const isPasswordMatched = await bcrypt.compare(oldPassword, userDetails.password);
-        if (!isPasswordMatched) {
-            return res.status(401).json({
-                success: false,
-                message: "Incorrect old password",
-            });
-        }
-
-        if (newPassword !== confirmNewPassword) {
+         const userDetails = await User.findById(req.user.id);
+         
+         const {oldPassword , newPassword} = req.body ;
+         
+         if(!oldPassword || !newPassword){
             return res.status(400).json({
-                success: false,
-                message: "New passwords do not match",
+                success:false , 
+                message :"fill all the details", 
             });
-        }
+         }
 
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        const updatedUserDetails = await User.findByIdAndUpdate(
-            userId,
-            { password: hashedPassword },
-            { new: true }
-        );
+         const isPassMatched = await bcrypt.compare(oldPassword , userDetails.password);
+         if(!isPassMatched){
+            return res
+        .status(401)
+        .json({ success: false, message: "The password is incorrect" })
+         } 
 
+         //now update the password 
+         const encryptedPassword = await bcrypt.hash(newPassword ,10);
+         const updatedUserDetails = await User.findByIdAndUpdate(req.user.id , 
+            {password:encryptedPassword} , 
+            {new : true});
+
+        //  sending a confirmation mail also 
         try {
-            const emailResponse = await mailSender(
-                updatedUserDetails.email,
-                "Password updated successfully",
-                passwordUpdated(
-                    updatedUserDetails.email,
-                    `Password has been successfully updated for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+            
+            const emailResponse= await mailSender(
+                updatedUserDetails.email , "password for your account has been updated" 
+                , passwordUpdated(
+                    updatedUserDetails.email , 
+                   `Password updated successfully for ${updatedUserDetails.firstName} ${updatedUserDetails.lastName}`
+
                 )
-            );
-            console.log("Password change email sent successfully:", emailResponse);
-        } catch (error) {
-            console.error("Error occurred while sending email:", error);
+            )
+
+            console.log("Email sent succsesfully" , emailResponse);
+
+
+        }catch(error){
+            console.error("Error occurred while sending email:", error)
             return res.status(500).json({
-                success: false,
-                message: "Password updated, but an error occurred while sending the email",
-                error: error.message,
-            });
+              success: false,
+              message: "Error occurred while sending email",
+              error: error.message,
+            })   
         }
 
-        return res.status(200).json({
-            success: true,
-            message: "Password changed successfully",
-        });
+        return res
+        .status(200)
+        .json({ success: true, message: "Password updated successfully" })
+        
 
+         
     } catch (error) {
         console.error("Error occurred while updating password:", error);
         return res.status(500).json({

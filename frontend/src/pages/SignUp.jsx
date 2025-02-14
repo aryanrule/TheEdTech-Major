@@ -6,7 +6,7 @@ import Tab from '../components/Core/Auth/Tab';
 import { useDispatch } from 'react-redux';
 import { setSignupData } from '../slices/authSlice';
 import { sendOTP } from '../services/operations/authApi';
-
+import fileManager from '../assets/assets';
 
 function SignUp(){   
   const navigate = useNavigate();
@@ -86,15 +86,35 @@ function SignUp(){
  
   return (
        <div className='flex items-center  justify-center gap-[20px]   h-[100vh] overflow-x-hidden p-3 '>
-           
+            <div className="flex  flex-col items-center  gap-5 ">
+         
+         <h1 className="font-bold text-4xl">Join AceEdify Today ! </h1>
+         <h4 className="font-medium  ">Yogesh and Rahul already  learning at a pace ! Lets learn with them   </h4>
+
+         <div className="flex gap-3">
+             <img src={fileManager.s1} className="h-[60px] rounded-2xl border-3 border-mango-green border-2"/>
+             <img src={fileManager.s3} className="h-[60px] w-[50px] rounded-full border-mango-green border-2 "/>
+             <img src={fileManager.s4} className="h-[60px]  w-[70px] rounded-full border-mango-green border-2"/>
+             <img src={fileManager.s5} className="h-[60px] w-[70px] rounded-full border-mango-green border-2"/>
+             <img src={fileManager.s2} className="h-[60px] rounded-full border-mango-green border-2 "/>
+
+         </div>
+     
+      </div>
+      
+      <div className="h-[400px] w-[1px] bg-mango-green opacity-1">
+
+      </div>
         
-           <div className=''>
+           <div className='flex flex-col gap-6'>
+                <Tab tab_data={tab_data} setField ={setAccountType} field = {accountType}/>
+
                 <form onSubmit={submitHandler}>
-                  <Tab tab_data={tab_data} setField ={setAccountType} field = {accountType}/>
-                  
+                 
                     <div className=''>
-                          <div>
-                              <label htmlFor ='firstName'>FirstName</label>
+                          <div className='flex gap-2 '>
+                            <div className='flex flex-col'>
+                            <label htmlFor ='firstName' className="font-bold text-xl">FirstName</label>
                               <input
                                 placeholder='Enter FirstName'
                                 type='text' 
@@ -102,10 +122,13 @@ function SignUp(){
                                 value={formData.firstName} 
                                 required 
                                 onChange={changeHandler}
+                                className='form-style border-mango-green border-2 h-[40px]'
                                 
                               />
+                            </div>
 
-                              <label htmlFor = 'lastName'>LastName</label>
+                              <div className='flex flex-col '>
+                              <label htmlFor = 'lastName' className="font-bold text-xl">LastName</label>
                               <input
                                 placeholder='Enter Last Name'
                                 type='text' 
@@ -113,11 +136,13 @@ function SignUp(){
                                 value={formData.lastName}
                                 required
                                 onChange={changeHandler}
+                                className='form-style border-mango-green border-2 h-[40px]'
                               />
+                              </div>
                           </div>
 
-                          <div>
-                             <label htmlFor='email'>Email</label>
+                          <div className='flex  mt-3  flex-col '>
+                             <label htmlFor='email'  className="font-bold text-xl">Email</label>
                              <input
                                 placeholder='Enter email address'
                                 type='text'
@@ -125,11 +150,13 @@ function SignUp(){
                                 value={formData.email}
                                 required 
                                 onChange={changeHandler}
+                                className='form-style border-mango-green border-2 h-[40px] w-[450px] '
+
                              />
                           </div>
 
-                          <div>
-                              <label htmlFor ='phone'>Phone Number</label>
+                          <div className='flex flex-col mt-3 '>
+                              <label htmlFor ='phone' className="font-bold text-xl">Phone Number</label>
                               <input 
                                 placeholder='Enter Phone Number'
                                 type='number'
@@ -137,12 +164,15 @@ function SignUp(){
                                 value={formData.phoneNumber}
                                 onChange={changeHandler}
                                 required
+                                className='form-style border-mango-green border-2 h-[40px] w-[450px] '
+                                
                               />
 
                           </div>
 
-                          <div>
-                              <label htmlFor = ''>Create PassWord</label>
+                          <div className='flex gap-2 mt-3'>
+                             <div className='flex flex-col'>
+                             <label htmlFor = 'password' className="font-bold text-xl">Create PassWord</label>
                               <input
                                 placeholder='Enter passWord'
                                 type='text'
@@ -150,9 +180,13 @@ function SignUp(){
                                 value={formData.password}
                                 required = {true}
                                 onChange={changeHandler}
-                              />
+                                className='form-style border-mango-green border-2 h-[40px]'
 
-                              <label htmlFor = ''>Confirm Password</label>
+                              />
+                             </div>
+                              
+                             <div className='flex flex-col'>
+                             <label htmlFor = 'confirmPassword' className="font-bold text-xl">Confirm Password</label>
                               <input
                                 placeholder='Enter Your Password'
                                 type='text'
@@ -160,14 +194,18 @@ function SignUp(){
                                 value={formData.confirmPassword}
                                 required = {true}
                                 onChange={changeHandler}
+                                className='form-style border-mango-green border-2 h-[40px]'
+
                               />
+                             </div>
                           </div>
 
 
-                          <button onClick={submitHandler}>Create Account</button>
-                          <div> Already have a Account? 
+                          <button onClick={submitHandler} className='greenButton mt-6 w-[450px]' >Create Account</button>
+                          <div className='mt-2'> Already have a Account? 
+                          
                           <Link to='/login'>
-                              <span>Sign In</span>
+                              <span className='text-mango-green'> Sign In</span>
                           </Link>
                           
                           </div>

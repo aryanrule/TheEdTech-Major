@@ -55,6 +55,53 @@ export function deleteAccount(user , navigate){
 }
 
 
+export const updateProfileInfo = (formdata , token) => {
+    return async (dispatch) => {
+        const toastId =  toast.loading("updating....");
+        try {
+           console.log(SettingsEndPoints.UPDATE_PROFILE);
+           
+           const response = await ApiConnector("POST" , SettingsEndPoints.UPDATE_PROFILE , formdata , {
+            Authorization : `Bearer ${token}`
+           });
+           console.log(response);
+           
+           
+        }catch(error){
+           console.log("error while hitting the upateProfile API" , error);
+           toast.error(error.message);
+
+        }
+        toast.dismiss(toastId);
+    }
+}
+
+
+
+export const changePassword = (formdata , token) => {
+     
+     return async () => {
+        const toastId = toast.loading("updating...");
+        try {
+           const response = await ApiConnector("POST" , SettingsEndPoints.CHANGE_PASSWORD , formdata , {
+            Authorization : `Bearer ${token}`
+           });
+           
+           console.log(response);
+           if(!response?.data?.success){
+             throw new Error("coudnt update the password");
+           }
+
+           toast.success("password updated succesfully");
+
+        }catch(error){
+            console.log("error while hitting the upateProfile API" , error);
+            toast.error(error.message);
+ 
+        }
+        toast.dismiss(toastId);
+     }
+}
 
 
 

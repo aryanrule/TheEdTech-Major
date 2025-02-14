@@ -23,7 +23,7 @@ export const SettingsEndPoints = {
     UPDATE_PROFILE_PICTURE : BASE_URL + '/Profile/updateProfilePicture' ,
     UPDATE_PROFILE : BASE_URL + '/Profile/updateProfile' ,  
     DELETE_ACCOUNT : BASE_URL + '/Profile/deleteAccount' , 
-
+    CHANGE_PASSWORD : BASE_URL + '/auth/changepassword' , 
 }
 
 export const CourseEndpoints = {

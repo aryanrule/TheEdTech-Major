@@ -86,49 +86,168 @@ body{
     opacity: 1; /* Fully visible */
   }
 }
-/* 
 
-.pointer1{
+.pointer1 {
   position: relative;
-  
   animation-name: circleOne;
-  animation-delay: 6s;
-  animation-duration: 2.3s;
-  animation-timing-function: ease-in;
+  animation-delay: 1s;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite; /* Keeps the animation looping */
 }
 
 @keyframes circleOne {
-   0%{
-      top: 0px;
-      left: 0px;
-   }
-   30%{
-      top: 0px;
-      left: 50px;
+  0% {
+    left: 0px;
+    top: 0px;
+  }
+  25% {
+    left: 100px;
+    top: 0px;
+  }
+  50% {
+    left: 100px;
+    top: 100px;
+  }
+  75% {
+    left: 0px;
+    top: 100px;
+  }
+  100% {
+    left: 0px;
+    top: 0px;
+  }
+}
 
-   }
-   60%{
-     top: 50px;
-     left: 0px;
-   }
-
-   100%{
-    bottom: 40px;
-   }
-
-} */
 
 .pointer2 {
   position: relative;
+  animation-name: circleTwo;
+  animation-delay: 2s;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite; 
 }
+
 
 @keyframes circleTwo {
-  
+  0% {
+    left: 0px;
+    bottom: 0px;
+  }
+  25% {
+    left: 100px;
+    bottom: 0px;
+  }
+  50% {
+    left: 100px;
+    bottom: 100px;
+  }
+  75% {
+    left: 0px;
+    bottom: 100px;
+  }
+  100% {
+    left: 0px;
+    bottom: 0px;
+  }
 }
 
 
 
 
+
+
+.pointer3{
+  position: relative;
+  animation-name: circleThree;
+  animation-delay: 2s;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+} 
+
+@keyframes circleThree {
+  0% {
+    right: 0px;
+    top: 0px;
+
+  }
+  25%{
+    right: 100px;
+    top: 0px;
+  }
+  50%{
+    right: 100px;
+    top: 100px;
+  }
+  75%{
+    right: 0px;
+    top: 100px;
+  }
+  100%{
+    right: 0px;
+    top: 0px;
+  }
+}
+
+.pointer4{
+  position: relative;
+  animation-name: circleFour;
+  animation-delay: 1s;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+} 
+
+@keyframes circleFour {
+  0% {
+    right: 0px;
+    bottom: 0px;
+  }
+  25% {
+    right: 100px;
+    bottom: 0px;
+  }
+  50% {
+    right: 100px;
+    bottom: 100px;
+  }
+  75% {
+    right: 0px;
+    bottom: 100px;
+  }
+  100% {
+    right: 0px;
+    bottom: 0px;
+  }
+}
+
+.scroll1 {
+  animation-name: hello;
+  animation-duration: 5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; /* Keeps the final state */
+  animation-timeline:view();
+  animation-range: entry 0% cover 0%;
+}
+
+@keyframes hello {
+  from {
+    opacity: 0;
+    transform: scale(0.4); /* Corrected scale */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+.circlePosition{
+  animation-name: c1;
+  
+}
 
 .main{
    animation-name: mainAnimation;
@@ -168,7 +287,7 @@ body{
 } */
 
 .lable-style {
-  @apply text-[14px] text-white;
+  @apply text-[14px] text-black;
 }
 
 .yellowButton {
@@ -179,3 +298,12 @@ body{
 .blackButton {
   @apply cursor-pointer rounded-md bg-richblack-800 px-[20px] py-[8px] font-semibold text-richblack-5;
 }
+
+
+.greenButton {
+  @apply cursor-pointer rounded-md bg-mango-green px-[20px] py-[8px] font-semibold text-white;
+}
+
+
+
+

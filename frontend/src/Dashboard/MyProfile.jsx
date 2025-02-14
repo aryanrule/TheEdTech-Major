@@ -64,7 +64,7 @@ const MyProfile = () => {
         <div className="flex w-full items-center justify-between">
           <p className="text-lg font-semibold text-richblack-5">
             Personal Details
-          </p>
+          </p>s
           <IconBtn
             text="Edit"
             // onclick={() => {

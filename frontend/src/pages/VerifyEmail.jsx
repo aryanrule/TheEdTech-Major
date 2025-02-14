@@ -52,6 +52,10 @@ const VerifyEmail = () => {
      }
   }
 
+  
+   
+  
+
   // you wanted to signup now
   
   const clickHandler = (event) => {
@@ -75,14 +79,15 @@ const VerifyEmail = () => {
         
   }
 
+
   
   
   
   return (
     <div className="flex justify-center items-center h-screen overflow-x-hidden">
-      <div className="min-w-[700px] h-[450px]  bg-slate-200 rounded-3xl flex flex-col items-center justify-center ">
-           <div>Enter Verification code</div>
-           <div>A verification code has been sent to you. Enter the code below</div>
+      <div className="min-w-[700px] h-[450px]   rounded-3xl flex flex-col items-center justify-center gap-4 border-mango-green border-2 ">
+           <div className='font-bold text-3xl'>Enter Verification code</div>
+           <div className='font-bold'>A verification code has been sent to you. Enter the code below</div>
            
            <div className='flex space-x-4 '>
            {
@@ -97,13 +102,13 @@ const VerifyEmail = () => {
                 onKeyDown={(event)=>handleKeyDown(event , index)}
                 className="w-12 h-14 text-center text-xl font-semibold border-2 rounded-lg 
                      focus:border-mango-green focus:outline-none transition-colors
-                     bg-white shadow-sm"
+                     bg-white shadow-sm "
                />
             ))
            }
            </div>
            
-           <button className=''
+           <button className='w-[370px] yellowButton mt-3'
            onClick={clickHandler}>
                 verify email
            </button>

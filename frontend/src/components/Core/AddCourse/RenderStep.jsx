@@ -78,7 +78,7 @@ const RenderStep = () => {
       {/* rendering the next three components based on step*/}
       {step === 1 && <CourseInformation/>}
       {step === 2 && <CourseBuilder/>}
-      {step === 3 && <PublishCourse/>}
+      {step === 3 && <PublishCourse/>}c
     </>
   );
 };
