@@ -134,6 +134,7 @@ export default {
       }, 
       boxShadow: {
         'text-shadow': '2px 2px 4px rgba(0, 72, 56, 0.6), -2px -2px 4px rgba(0, 72, 56, 0.4)',
+        'custom-shadow' :'0 4px 6px rgba(0, 72, 56, 0.2)',
       },
       maxWidth: {
         maxContent: "1260px",

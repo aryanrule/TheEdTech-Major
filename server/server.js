@@ -15,7 +15,7 @@ const cookieParser = require('cookie-parser');
 const {cloudinaryConnect} = require('./Config/cloudinary');
 const fileUpload = require('express-fileupload');
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT ;
 
 
 app.use(cors());
@@ -51,7 +51,7 @@ app.get('/', async (req, res) => {
 dbConnect();
 cloudinaryConnect();
 
-app.listen(PORT, () => {
+app.listen(PORT ,  () => {
     console.log(`Server started on port ${PORT}`);
 });
 

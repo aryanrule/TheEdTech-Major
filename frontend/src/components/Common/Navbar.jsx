@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { ACCOUNT_TYPE } from "../../utils/constant";
 import ProfileDropdown from "../Core/HomePage/Nav/ProfileDropdown";
 import { fetchAllCategories } from "../../services/operations/courseDetailsAPI";
- import {AiOutlineShoppingCart} from  "react-icons/ai";
+import {AiOutlineShoppingCart} from  "react-icons/ai";
 
 const Navbar = () => {
   const location = useLocation();
@@ -77,7 +77,7 @@ const Navbar = () => {
       </Link>
 
       {/* Navigating Links */}
-      <div className="flex justify-center items-center text-center text cursor-pointer  gap-7">
+      <div className="flex justify-center items-center text-center text cursor-pointer z-[1000] gap-7">
         {Navlinks.map((link, index) => {
           return (
             <div key={index}>

@@ -34,6 +34,12 @@ import aboutus3 from './aboutus3.png';
 
 import foundingStory from './FoundingStory.png'
 
+
+import chat from './chat.png';
+import telephone from './telephone.png';
+
+import location from './map.png';
+
 const fileManager = {
     cart , 
     coder  , 
@@ -67,6 +73,10 @@ const fileManager = {
     aboutus3 ,
 
     foundingStory , 
+
+    chat , 
+    telephone ,
+    location ,  
  
 };
 

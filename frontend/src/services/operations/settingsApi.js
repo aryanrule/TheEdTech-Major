@@ -15,12 +15,16 @@ export function UpdateProfilePicture(formdata , token){
             })
             
             if (!response?.data?.success) {
+
                 throw new Error(response.data.message)
             }
             
             toast.success("Image uploaded succesfully");
             console.log(response);
-            dispatch(setUser(response?.data?.updatedProfile));
+            
+            
+            
+            dispatch(setUser(response?.data?.data));
             
             
         }catch(error){ 
@@ -33,19 +37,21 @@ export function UpdateProfilePicture(formdata , token){
      
 }
 
-export function deleteAccount(user , navigate){
+export function deleteAccount(token , navigate){
     return async(dispatch)=> {
         const ToastId = toast.loading("deleting....");
         try {
             console.log("deleteuser Api" , SettingsEndPoints.DELETE_ACCOUNT);
-            const Response = await ApiConnector("POST" , SettingsEndPoints.DELETE_ACCOUNT , {user});
+            const Response = await ApiConnector("POST" , SettingsEndPoints.DELETE_ACCOUNT , null  , 
+               { Authorization: `Bearer ${token}`,}
+            );
             if(!Response){
                 console.log("coudnt delete the account");
                 return;
             }
             
-            toast.success("Account deleted");
-            navigate('/');
+            toast.success("Account deleted Successfuly");
+            dispatch(navigate('/'));
         }catch(error){
             console.log("something went wrong while hitting DeleteAccount Api")
             toast.error("error");
@@ -64,7 +70,18 @@ export const updateProfileInfo = (formdata , token) => {
            const response = await ApiConnector("POST" , SettingsEndPoints.UPDATE_PROFILE , formdata , {
             Authorization : `Bearer ${token}`
            });
-           console.log(response);
+           console.log("response" , response);
+
+           if(!response?.data?.success){
+              throw new Error("coudnt update the profileInfo");
+           }
+        
+           const userImage = response?.data?.updatedUserDetails?.image ? response?.data?.updatedUserDetails?.image : 
+           `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.updatedUserDetails.firstName} ${response.data.updatedUserDetails.lastName}`;
+
+           dispatch(setUser({...response?.data?.updatedUserDetails , image : userImage}));
+           
+           toast.success("Profile Updated succesfullyy");
            
            
         }catch(error){

@@ -32,7 +32,7 @@ const ProfileInfo = () => {
 };
 
 
-  return (
+ return (
     <>
         <form onSubmit={handleSubmit(submitProfileForm)}>
         {/* Profile Information */}

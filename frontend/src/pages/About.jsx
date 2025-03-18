@@ -1,5 +1,7 @@
 import React from 'react'
 import fileManager from '../assets/assets'
+import Contact from '../components/Common/Contact'
+import Footer from '../components/Common/Footer'
 const About = () => {
   return (
     <div>
@@ -46,21 +48,63 @@ const About = () => {
 
       <div className='w-[100vw] h-[60vh] flex items-center justify-center gap-[40px] '>
                <div className='flex flex-col items-center justify-center w-[35%]'>
-                 <h1 className='bg-[linear-gradient(to_right,#E65C00,#F9D423)] text-transparent bg-clip-text text-4xl font-bold'>Our Vision</h1>
+                 <h1 className='bg-[linear-gradient(to_right,#E65C00,#F9D423)] text-transparent bg-clip-text text-4xl font-bold'>Our Mission </h1>
                  <p className='mt-[30px] font-medium text-[18px]'>With this vision in mind, we set out on a journey to create an e-learning platform that would revolutionize the way people learn. Our team of dedicated experts worked tirelessly to develop a robust and intuitive platform that combines cutting-edge technology with engaging content, fostering a dynamic and interactive learning experience.</p>
                </div>
 
                <div className='flex flex-col items-center justify-center w-[40%]'>
-                 <h1 className='bg-[linear-gradient(to_right,#1FA2FF , #A6FFCB)] text-transparent bg-clip-text text-4xl font-bold'>Our Vision</h1>
+               <h1 className="bg-gradient-to-r from-[#1FA2FF] via-[#1FA2FF] to-[#A6FFCB] text-transparent bg-clip-text text-4xl font-bold">Our Vision</h1>
                   <p className='mt-[30px] font-medium text-[18px]'>our mission goes beyond just delivering courses online. We wanted to create a vibrant community of learners, where individuals can connect, collaborate, and learn from one another. We believe that knowledge thrives in an environment of sharing and dialogue, and we foster this spirit of collaboration through forums, live sessions, and networking opportunities.</p>
                </div>
       </div>
 
+      <div className='h-[30vh] w-[100vw] bg-soft-gray flex items-center justify-evenly '>
+          <div className='flex flex-col items-center'>
+              <h1 className='font-bold text-[50px]'>5K</h1>
+              <p  className='text-[20px] opacity-60'>Active Students</p>
+          </div>
+
+          <div className='flex flex-col items-center'>
+              <h1 className='font-bold text-[50px]'>10+</h1>
+              <p  className='text-[20px] opacity-60'>Mentors</p>
+          </div>
+
+        
+
+          <div className='flex flex-col items-center'>
+              <h1 className='font-bold text-[50px]'>200+</h1>
+              <p  className='text-[20px] opacity-60'>Courses</p>
+          </div>
+      </div>
 
 
+      <div className='h-[125vh] w-[100vw] flex flex-col items-center gap-[20px]'>
 
+            
+             <h1 className=" mt-[50px] bg-[linear-gradient(to_right,#833AB4,#FD1D1D,#FCB045)] text-transparent bg-clip-text text-4xl font-bold">Get In Touch</h1>
+             <h3 className=' font-normal text-[20px]'>We’d love to here for you, Please fill out this form.</h3>
+              
+            {/* <div className='h-[200px]  w-[500px] bg-pink-100  -translate-x-[250px] translate-y-[30px] blur-[90px] absolute -z-[3]'></div> */}
+
+             <div  className='z-[45]'>
+                <Contact/>
+             </div>
+
+      </div>
+
+      {/* here only review slider leftover */}
+      <div>
           
-    
+      </div>
+
+      
+
+      {/*  */}
+
+      <div >
+          <Footer/>
+      </div>
+
     </div>
   )
 }
