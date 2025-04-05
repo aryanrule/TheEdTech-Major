@@ -26,6 +26,7 @@ import AddToCart from "./pages/AddToCart.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import { useEffect } from "react";
 
+
 function App() {
   const {user} = useSelector((state) => state.profile);
   
