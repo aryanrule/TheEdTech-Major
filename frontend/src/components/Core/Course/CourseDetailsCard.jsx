@@ -70,7 +70,7 @@ const CourseDetailsCard = ({course , setConfirmationModal}) => {
   return (
     <>
        <div
-        className={`flex flex-col gap-4 rounded-md bg-richblack-700 p-4 text-richblack-5`}
+        className={`flex flex-col gap-4 rounded-md bg-mango-green p-4 text-richblack-5`}
        >
 
          <img

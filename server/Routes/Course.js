@@ -35,7 +35,8 @@ router.post('/addSubsection', auth , isInstructor , createSubSection);
 router.delete('/deleteSubsection' , auth , isInstructor , deleteSubSection);
 
 /****************** CATEGORY-RELATED ROUTES  *****************/
-router.post('/createCategory', auth, isAdmin, createCategory);
+
+router.post('/createCategory', auth, isAdmin ,  createCategory);
 router.get('/getAllCategories' , getAllCategory );
 router.post('/getCategoryPageDetails' , getCategoryPageDetails);
 

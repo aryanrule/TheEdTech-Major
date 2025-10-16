@@ -129,13 +129,13 @@ const Upload = ({
               <FiUploadCloud className="text-2xl text-mango-green" />
             </div>
 
-            <p className="mt-2 max-w-[200px] text-center text-sm text-richblack-200">
+            <p className="mt-2 max-w-[200px] text-center text-sm text-black">
               Drag and drop an {!video ? "image" : "video"}, or click to{" "}
               <span className="font-semibold text-mango-green">Browse</span> a
               file
             </p>
 
-            <ul className="mt-10 flex list-disc justify-between space-x-12 text-center  text-xs text-richblack-200">
+            <ul className="mt-10 flex list-disc justify-between space-x-12 text-center  text-xs text-black ">
               <li>Aspect ratio 16:9</li>
               <li>Recommended size 1024x576</li>
             </ul>

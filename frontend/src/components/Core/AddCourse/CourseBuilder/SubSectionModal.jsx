@@ -87,10 +87,11 @@ const SubSectionModal = ({
   }
   return (
     <div className='fixed inset-0 z-[1000] !mt-0 grid h-screen w-screen place-items-center overflow-auto bg-mango-green bg-opacity-10 backdrop-blur-sm'>
-       <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-richblack-800">
-         <div className="flex items-center justify-between rounded-t-lg bg-richblack-700 p-5">
+       <div className="my-10 w-11/12 max-w-[700px] rounded-lg border border-richblack-400 bg-[#B2BEB5]
+       ">
+         <div className="flex items-center justify-between rounded-t-lg bg-mango-green p-5">
          <p className="text-xl font-semibold text-white">
-            hii every body
+          Build Your Subsection !!!
          </p>
 
          <button 
@@ -114,13 +115,12 @@ const SubSectionModal = ({
             errors={errors}
             video={true}
             viewData={view ? modalData.videoUrl : null}
-            
           />
 
 
           {/* Lecture title */}
           <div className="flex flex-col space-y-2">
-              <label className='text-sm text-white' htmlFor='lectureTitle'>Lecture Title</label>
+              <label className='text-sm text-black' htmlFor='lectureTitle'>Lecture Title</label>
               <input
                 placeholder='Enter Lecture Title'
                 className="form-style w-full"
@@ -141,7 +141,7 @@ const SubSectionModal = ({
           
 
           <div className="flex flex-col space-y-2">
-            <label className="text-sm text-white"  htmlFor='lectureDesc'>Lecture Description</label>
+            <label className="text-sm text-black"  htmlFor='lectureDesc'>Lecture Description</label>
             
               <textarea
               className="form-style resize-x-none min-h-[130px] w-full"

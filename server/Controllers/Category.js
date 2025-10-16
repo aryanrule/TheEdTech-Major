@@ -60,7 +60,7 @@ exports.getAllCategory = async (req , res) => {
     }catch(e){
         return res.status(500).json({
             success:false,
-            message:error.message,
+            message:e.message,
         })
     }
 }

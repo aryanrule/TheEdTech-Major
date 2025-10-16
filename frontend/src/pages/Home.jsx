@@ -12,14 +12,15 @@ import LearningLanguageSections from "../components/Core/HomePage/LearningLangua
 import { FaArrowRight } from "react-icons/fa";
 import Footer from "../components/Common/Footer";
 
+
 const Home = () => {
   return (
     <div className="">
       <div className=" w-[100vw] h-[90vh] bg-soft-gray z-[7] flex  justify-between ">
-      <div class="absolute z-[1] top-[110px] translate-x-[240px] inset-0 h-[600px] w-[1200px] bg-transparent p-[30px] bg-[linear-gradient(to_right,#80808012_2px,transparent_2px),linear-gradient(to_bottom,#80808012_2px,transparent_2px)] bg-[size:24px_24px]  "></div>
+      {/* <Grid/> */}
       <div className="mt-8">
           <div
-            className="pointer1 w-[60px] h-[60px] rounded-full bg-black translate-x-[220px] translate-y-[40px] border-2 border-white"
+            className="pointer pointer1 w-[60px] h-[60px] rounded-full bg-black translate-x-[220px] translate-y-[40px] border-2 border-white"
             style={{
               backgroundImage: `url(${fileManager.men1})`,
               backgroundPosition: "center",
@@ -34,7 +35,7 @@ const Home = () => {
           </div>
 
           <div
-            className="pointer2 relative w-[60px] h-[60px]  rounded-full bg-black  translate-x-[220px] translate-y-[300px] border-white border-2"
+            className="pointer pointer2 relative w-[60px] h-[60px]  rounded-full bg-black  translate-x-[220px] translate-y-[300px] border-white border-2"
             style={{
               backgroundImage: `url(${fileManager.women1})`,
 
@@ -48,6 +49,7 @@ const Home = () => {
               className="w-[50px] h-[50px]  rotate-90 translate-x-[40px] translate-y-[-30px] p-[5px] "
             />
           </div>
+        
         </div>
 
         <div className="mt-20 z-[100]">
@@ -76,7 +78,7 @@ const Home = () => {
 
         <div className="mt-8 relative">
           <div
-            className="pointer3 w-[60px] h-[60px] relative rounded-full bg-black translate-x-[-220px] translate-y-[40px] border-2 border-white"
+            className="pointer pointer3 w-[60px] h-[60px] relative rounded-full bg-black translate-x-[-220px] translate-y-[40px] border-2 border-white"
             style={{
               backgroundImage: `url(${fileManager.model})`,
 
@@ -92,7 +94,7 @@ const Home = () => {
           </div>
 
           <div
-            className="pointer4 w-[60px] h-[60px]  rounded-full bg-black  translate-x-[-220px] translate-y-[300px] border-1 border-white"
+            className="pointer  pointer4 w-[60px] h-[60px]  rounded-full bg-black  translate-x-[-220px] translate-y-[300px] border-1 border-white"
             style={{
               backgroundImage: `url(${fileManager.model3})`,
 

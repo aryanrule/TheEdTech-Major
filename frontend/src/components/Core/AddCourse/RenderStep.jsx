@@ -35,11 +35,11 @@ const RenderStep = () => {
                     ${
                       step === item.id
                         ? "border-mango-green text-mango-green"
-                        : "border-richblack-700 bg-richblack-800 text-richblack-300"
+                        : "border-richblack-700 bg-dark-green text-richblack-300"
                     }
                          ${step > item.id && "bg-mango-green "} `}
               >
-                {step > item.id ? <FaCheck /> : item.id}
+                {step > item.id ? <FaCheck className="text-yellow-5"/> : item.id}
               </button>
             </div>
             
@@ -49,7 +49,7 @@ const RenderStep = () => {
                 <div
                    key = {item.id}
                     className={`h-[calc(34px/2)] w-[33%] mt-[8px]  border-dashed border-b-4 ${
-                    step > item.id ? "border-yellow-50" : "border-richblack-500"
+                    step > item.id ? "border-dark-green" : "border-richblack-500"
                   } `}
                 ></div>
               </>
@@ -78,7 +78,7 @@ const RenderStep = () => {
       {/* rendering the next three components based on step*/}
       {step === 1 && <CourseInformation/>}
       {step === 2 && <CourseBuilder/>}
-      {step === 3 && <PublishCourse/>}c
+      {step === 3 && <PublishCourse/>}
     </>
   );
 };
